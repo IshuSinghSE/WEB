@@ -8,7 +8,9 @@
             <div class="masonry-blog clearfix">
                 <div class="first-slot">
                     <div class="masonry-box post-media">
-                         <img src="{% static 'upload/tech_01.jpg' %}" alt="" class="img-fluid">
+                         
+                           <img src="{% static 'upload/tech_01.jpg' %}" alt="" class="img-fluid">
+                      
                          <div class="shadoweffect">
                             <div class="shadow-desc">
                                 <div class="blog-meta">
@@ -77,7 +79,11 @@
                                     <div class="col-md-4">
                                         <div class="post-media">
                                             <a href="{% url 'article_detail' post.pk %}" title="">
+                                          {% if post.image %}
+                                                <img src="{{ post.image.url }}" alt="" class="img-fluid">
+                                          {% else %}
                                                 <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid">
+                                          {% endif %}
                                                 <div class="hovereffect"></div>
                                             </a>
                                         </div><!-- end media -->
