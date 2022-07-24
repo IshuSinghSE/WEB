@@ -91,7 +91,7 @@
 
                                     <div class="blog-meta big-meta col-md-8">
                                         <h4><a href="{% url 'single' %}" title="">{{ post.title }}</a></h4>
-                                        <p>{{ post.body|slice':100' }}</p>
+                                        <p>{{ post.body|slice:':100' }}</p>
                                         <small class="firstsmall"><a class="bg-orange" href="{% url 'gadgets' %}" title="">{{ post.category }}</a></small>
                                         <small><a href="{% url 'single' %}" title="">{{ post.date }}</a></small>
                                         <small><a href="{% url 'author' %}" title="">By {{ post.author.first_name }} {{ post.author.last_name }}</a></small>
