@@ -1,6 +1,6 @@
 {%  extends 'base.html' %}
 {% block title %} 
-Add Post
+Delete Post
 {% endblock %}
 
 
@@ -10,12 +10,13 @@ Add Post
 {% if user.is_authenticated %}
 <div class="form-control">
 
-    <h1 class=" text-center font-weight-light">ADD POST</h1>
+    <h1 class=" text-center font-weight-light">DELETE : {{ post.title }}</h1>
     <form method="POST">
     {% csrf_token %} 
     {{ form.as_p }}
     {{ form.media }}
-    <button class="btn btn-secondary " >Post</button>    
+    <h3>You will not be able to undo this process....</h3>
+    <button class="btn btn-secondary ">Delete</button>    
     </form>
 
 </br>
@@ -26,5 +27,5 @@ Add Post
 </br>
 </br>
 </br>
-<hr class="invis">    
+    
 {% endblock %}}

@@ -423,6 +423,21 @@
                                     </li>
                                 </ul>
                             </li>
+                            {% if category_menu %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="{% url 'gadgets' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Category</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                {% for item in category_menu %}
+                                     <a href="{% url 'category' item|slugify %}" class="dropdown-item">{{ item }}</a>
+                                {% endfor %}    
+
+                            {% endif %}   
+                                
+                              
+                            </div>    
+                            </li>   
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'gadgets' %}">Gadgets</a>
                             </li>                   
@@ -436,17 +451,26 @@
                                 <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
                             </li>
                         </ul>
+                        
                         <ul class="navbar-nav mr-2">
+                        {% if user.is_authenticated %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'add_post' %}"><i class="fa fa-rss"></i></a>
+                                <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-rss"></i> | Logout</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-android"></i></a>
+                                <a class="nav-link" href=""><i class="fa fa-rss"></i> |{{ post.author }} </a>
+                            </li>
+                        {% else %}    
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'signup' %}"><i class="fa fa-android"></i>| SignUp</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-apple"></i></a>
+                                <a class="nav-link" href="{% url 'login' %}"><i class="fa fa-apple">  | Login</i></a>
                             </li>
+                        {% endif %}    
                         </ul>
+
+
                     </div>
                 </nav>
             </div><!-- end container-fluid -->
@@ -524,7 +548,7 @@
         <div class="row">
             <div class="col-md-12 text-center">
                 <br>
-                <div class="copyright">copyright &copy; Tech Blog</div>
+                <div class="copyright">Copyright &copy; Tech Blog</div>
             </div>
         </div>
     </div><!-- end container -->
