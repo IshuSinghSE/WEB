@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views.generic import ListView , CreateView, DetailView, UpdateView, DeleteView
 from .models import post, category
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.http import HttpResponseRedirect
 from .forms import PostForm, EditForm
 # Create your views here.
 
@@ -14,6 +15,7 @@ class HomeView(ListView):
     def get_context_data(self, *args, **kwargs):
         category_menu = category.objects.all()
         context = super(HomeView, self).get_context_data(*args, **kwargs)
+
         context["category_menu"] = category_menu
         return context
 
@@ -21,12 +23,28 @@ class ArticleView(DetailView):
     model = post
     template_name ='article_detail.html'
 
+    def get_context_data(self, *args, **kwargs):
+        category_menu = category.objects.all()
+        context = super(ArticleView, self).get_context_data(*args, **kwargs)
+        stuff = get_object_or_404(post, id=self.kwargs['pk'])
+        total_likes = stuff.total_likes()
+
+        liked = False
+        if stuff.likes.filter(id=self.request.user.id).exists():
+            liked = True
+
+        context["total_likes"] = total_likes
+        context["liked"] = liked
+        context["category_menu"] = category_menu
+        return context
+
+
 class AddPostView(CreateView):
     model = post
     template_name = 'add_post.html'
     form_class = PostForm
+   
     
-
 class UpdatePostView(UpdateView):
     model = post
     form_class = EditForm
@@ -43,6 +61,16 @@ def CategoryView(request, categories):
     return render(request, 'categories.html', {'categories':categories.replace('-',' ').title(), 'category_posts':category_posts})
 
    
+def LikeView(request, pk):
+    posts = get_object_or_404(post,id=request.POST.get('like_id'))
+    liked = False
+    if posts.likes.filter(id=request.user.id).exists():
+        posts.likes.remove(request.user)
+        liked = False
+    else:
+        posts.likes.add(request.user)
+        liked = True
+    return HttpResponseRedirect(reverse('article_detail', args=[str(pk)]))
 
 
 '''

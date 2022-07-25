@@ -66,9 +66,7 @@
                     <div class="page-wrapper">
                         <div class="blog-top clearfix">
                             <h4 class="pull-left">Recent News !<a href="#"><i class="fa fa-rss"></i></a>
-                                {% for item in category_menu %}
-                                    {{ item }}
-                                {% endfor %}
+                                
                             </h4>
                         </div><!-- end blog-top -->
 
@@ -95,13 +93,17 @@
                                       
                                     <div class="blog-meta big-meta col-md-8">
                                         <h4><a href="{% url 'single' %}" title="">{{ post.title }}</a></h4>
-                                        <small>  
-                                        <a href="{% url 'update_post' post.pk %}"> <i class="fa fa-edit">  edit  </i>
-                                        </a> |
-                                        <a href="{% url 'delete_post' post.pk %}"> <i class="fa fa-trash">  delete  </i>
-                                        </a>
-                                        </small>
-                                        <p>{{ post.body|slice:':100'|safe }}</p>
+                                        {% if user.id == post.author.id %}
+                                            <small>  
+                                            <a href="{% url 'update_post' post.pk %}"> <i class="fa fa-edit">  edit  </i>
+                                            </a> |
+                                            <a href="{% url 'delete_post' post.pk %}"> <i class="fa fa-trash">  delete  </i>
+                                            </a>
+                                            </small>
+                                        {% endif %}
+                                        <p>
+                                            {{ post.snippet }}
+                                        </p>
                                         <small class="firstsmall"><a class="bg-orange" href="{% url 'category' post.category|slugify %}" title="">{{ post.category }}</a></small>
                                         <small><a href="{% url 'single' %}" title="">{{ post.date }}</a></small>
                                         <small><a href="{% url 'author' %}" title="">By {{ post.author.first_name }} {{ post.author.last_name }}</a></small>
