@@ -6,6 +6,7 @@
     <section class="section first-section">
         <div class="container-fluid">
             <div class="masonry-blog clearfix">
+               
                 <div class="first-slot">
                     <div class="masonry-box post-media">
                          
@@ -17,7 +18,7 @@
                                     <span class="bg-orange"><a href="{% url 'gadgets' %}" title="">Technology</a></span>
                                     <h4><a href="{% url 'single' %}" title="">Say hello to real handmade office furniture! Clean & beautiful design</a></h4>
                                     <small><a href="{% url 'single' %}" title="">24 July, 2017</a></small>
-                                    <small><a href="{% url 'author' %}" title="">by Amanda</a></small>
+                                    <small><a href="#" title="">by Amanda</a></small>
                                 </div><!-- end meta -->
                             </div><!-- end shadow-desc -->
                         </div><!-- end shadow -->
@@ -33,7 +34,7 @@
                                     <span class="bg-orange"><a href="{% url 'gadgets' %}" title="">Gadgets</a></span>
                                     <h4><a href="{% url 'single' %}" title="">Do not make mistakes when choosing web hosting</a></h4>
                                     <small><a href="{% url 'single' %}" title="">03 July, 2017</a></small>
-                                    <small><a href="{% url 'author' %}" title="">by Jessica</a></small>
+                                    <small><a href="#" title="">by Jessica</a></small>
                                 </div><!-- end meta -->
                             </div><!-- end shadow-desc -->
                          </div><!-- end shadow -->
@@ -49,7 +50,7 @@
                                     <span class="bg-orange"><a href="{% url 'gadgets' %}" title="">Technology</a></span>
                                     <h4><a href="{% url 'single' %}" title="">The most reliable Galaxy Note 8 images leaked</a></h4>
                                     <small><a href="{% url 'single' %}" title="">01 July, 2017</a></small>
-                                    <small><a href="{% url 'author' %}" title="">by Jessica</a></small>
+                                    <small><a href="#" title="">by Jessica</a></small>
                                 </div><!-- end meta -->
                             </div><!-- end shadow-desc -->
                          </div><!-- end shadow -->
@@ -92,7 +93,7 @@
                                     </div><!-- end col -->                 
                                       
                                     <div class="blog-meta big-meta col-md-8">
-                                        <h4><a href="{% url 'single' %}" title="">{{ post.title }}</a></h4>
+                                        <h4><a href="{% url 'article_detail' post.pk %}" title="">{{ post.title }}</a></h4>
                                         {% if user.id == post.author.id %}
                                             <small>  
                                             <a href="{% url 'update_post' post.pk %}"> <i class="fa fa-edit">  edit  </i>
@@ -147,7 +148,7 @@
                                     <p>Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
                                     <small class="firstsmall"><a class="bg-orange" href="{% url 'gadgets' %}" title="">Design</a></small>
                                     <small><a href="{% url 'single' %}" title="">19 July, 2017</a></small>
-                                    <small><a href="{% url 'author' %}" title="">by Matilda</a></small>
+                                    <small><a href="#" title="">by Matilda</a></small>
                                     <small><a href="{% url 'single' %}" title=""><i class="fa fa-eye"></i> 4441</a></small>
                                 </div><!-- end meta -->
                             </div><!-- end blog-box -->
@@ -161,22 +162,45 @@
                     </div><!-- end page-wrapper -->
 
 
+
+                <!--   Pagination Start    --->
+
                     <hr class="invis">
+
+                {% if is_paginated %}
 
                     <div class="row">
                         <div class="col-md-12">
                             <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-start">
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
+
+                                    {% if page_obj.has_previous %}
+                                        <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Prev</a>
+                                    {% endif %}
+
+                                    <!-- Navigate pages -->
+                                    {% for num in page_obj.paginator.page_range %}
+                                        {% if page_obj.number == num %}
+                                            <li class="page-item"><a class="page-link active" href="?page={{ num }}">{{ num }}</a></li>
+                                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if page_obj.has_next %}
+                                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>
+                                    {% endif %}              
+                                   
                                 </ul>
                             </nav>
                         </div><!-- end col -->
                     </div><!-- end row -->
+                {% endif %}
+
+                <!--   Pagination END    --->
+
                 </div><!-- end col -->
 
                 <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">

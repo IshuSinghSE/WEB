@@ -5,21 +5,105 @@ Sign Up
 
 
 {% block content %}
-
-</br>
-
 <div class="form-control">
-
-    <h1 class=" text-center font-weight-light">Sign Up</h1>
-    <form method="POST">
-    {% csrf_token %} 
-    {{ form.as_p }}
-    
-    <button class="btn btn-secondary " >Sign Up</button>    
-    </form>
-
 </br>
-<hr class="invis">
+</br>
+</br>
+</br>
+
+
+    <!-- Pills navs -->
+        <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="tab-login" data-mdb-toggle="pill" href="{% url 'login' %}" role="tab"
+              aria-controls="pills-login" aria-selected="false">Login</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="tab-register" data-mdb-toggle="pill" href="{% url 'signup' %}" role="tab"
+              aria-controls="pills-register" aria-selected="true">Register</a>
+          </li>
+        </ul>
+        <!-- Pills navs -->
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+            <form method="POST">
+                {% csrf_token %} 
+               
+
+              <div class="text-center mb-3">
+                <p>Sign up with:</p>
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fa fa-facebook-f"></i>
+                </button>
+
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fa fa-google"></i>
+                </button>
+
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fa fa-twitter"></i>
+                </button>
+
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fa fa-github"></i>
+                </button>
+              </div>
+
+              <p class="text-center">or</p>
+              <!-- Username input -->
+              <div class="form-outline mb-4">
+                <input type="text" id="registerUsername" class="form-control" name="username" />
+                <label class="form-label" for="registerUsername">Username</label>
+              </div>
+
+              <!-- Name input -->
+              <div class="form-outline mb-4">
+                <input type="text" id="registerName" class="form-control" name="first_name"/>
+                <label class="form-label" for="registerName">First Name</label>
+              </div>
+
+              <div class="form-outline mb-4">
+                <input type="text" id="registerName" class="form-control" name="last_name"/>
+                <label class="form-label" for="registerName">Last Name</label>
+              </div>
+
+
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                <input type="email" id="registerEmail" class="form-control" name="email" />
+                <label class="form-label" for="registerEmail">Email</label>
+              </div>
+
+              <!-- Password input -->
+              <div class="form-outline mb-4">
+                <input type="password" id="registerPassword" class="form-control" name="password1" />
+                <label class="form-label" for="registerPassword">Password</label>
+              </div>
+
+              <!-- Repeat Password input -->
+              <div class="form-outline mb-4">
+                <input type="password" id="registerRepeatPassword" class="form-control" name="password2"/>
+                <label class="form-label" for="registerRepeatPassword">Confirm password</label>
+              </div>
+
+              <!-- Checkbox
+              <div class="form-check d-flex justify-content-center mb-4">
+                <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
+                  aria-describedby="registerCheckHelpText" />
+                <label class="form-check-label" for="registerCheck">
+                  I have read and agree to the terms
+                </label>
+              </div> -->
+              </div>
+
+              <!-- Submit button -->
+              <button type="submit" class="btn btn-primary btn-block mb-3">Sign in</button>
+            </form>
+          </div>
+        
+        <!-- Pills content -->
+</br>
+
 </div>
 
     

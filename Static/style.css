@@ -768,10 +768,10 @@ div.tab button:hover {
 .page-link {
     background-color: #edeff2 !important;
     border: 0 dashed #e2e2e2;
-    border-radius: 0;
+    border-radius: 10% ;
     color: #a3a5a8 !important;
     display: block;
-    font-size: 14px;
+    font-size: 18px;
     line-height: 1;
     margin-left: 6px;
     padding: 0.8rem 0.8rem;
@@ -780,17 +780,20 @@ div.tab button:hover {
 }
 
 .page-link:hover,
-.page-link:focus {
+.page-link:focus,
+.page-link:active,
+.page-link:link{
     color: #111 !important;
+   
 }
 
 .page-item:first-child .page-link {
     margin-left: 0;
-    border-radius: 0;
+    border-radius: 10%;
 }
 
 .page-item:last-child .page-link {
-    border-radius: 0;
+    border-radius: 10%;
 }
 
 .page-title {

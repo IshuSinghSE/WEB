@@ -423,7 +423,10 @@
                                     </li>
                                 </ul>
                             </li>
+
+
                             {% if category_menu %}
+
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="{% url 'gadgets' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Category</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -439,7 +442,6 @@
                               <li class="nav-item">
                                 <a class="nav-link" href="{% url 'category_list' %}">Categories</a>
                               </li>
-
 
                             {% endif %}   
                                 
@@ -465,32 +467,23 @@
 
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="{% url 'gadgets' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >{{ user.username }} </a>
+                                <a class="nav-link dropdown-toggle" href="{% url 'gadgets' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                {{ user.username }} </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">  
 
+                                <a href="" class="dropdown-item"> Profile </a>
                                 <a href="{% url 'edit_profile' %}" class="dropdown-item"> Edit Profile </a>
                                 <a href="{% url 'add_post' %}" class="dropdown-item">Add Post</a>
                                 <a href="" class="dropdown-item">update post</a>
                                 <a href="" class="dropdown-item">delete post</a>
                                     <div class="dropdown-divider"></div>                            
-                                <a href="{% url 'logout' %}" class="dropdown-item"> Logout</a>
-                                                       
+                                <a href="{% url 'logout' %}" class="dropdown-item"> Logout </a>
+
                             </div>    
                             </li> 
-<!--
-                            <small>  
-                            <a href=""> <i class="fa fa-edit">  edit  </i>
-                            </a> |
-                            <a href=""> <i class="fa fa-trash">  delete  </i>
-                            </a>
-                            </small>
-
--->
-
-
-
                            
                         {% else %}    
+                           
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'login' %}">  Login </a>
                             </li>
@@ -507,8 +500,27 @@
                 </nav>
             </div><!-- end container-fluid -->
         </header><!-- end market-header -->
+        
+
     </div>
-<hr>
+
+        {% if messages %}
+            {% for message in messages %}
+                </br>
+                </br>
+                </br>
+
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <strong>Alert!</strong> {{ message }}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>          
+            {% endfor %}
+        {% endif %}
+
+
+
 
 {% block content %}
 
@@ -536,7 +548,8 @@
                         <hr class="invis">
 
                         <div class="newsletter-widget text-left">
-                            <form class="form-inline">
+                            <form class="form-inline" >
+                               
                                 <p>Subscribe to our Newsletter</p>
                                 <input type="text" class="form-control" placeholder="Enter your email address">
                                 <button type="submit" class="btn btn-primary">SUBMIT</button>
@@ -588,10 +601,9 @@
 
 <div class="dmtop">
 
-</div><!-- end wrapper -->
+<!-- </div>--><!-- end wrapper -->
 
-<!-- Core JavaScript
-================================================== -->
+<!-- Core JavaScript ================================================== -->
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/tether.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>

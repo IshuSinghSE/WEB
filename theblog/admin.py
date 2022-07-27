@@ -1,1 +1,1 @@
-from django.contrib import adminfrom .models import post, category# Register your models here.admin.site.register(post)admin.site.register(category)
+from django.contrib import adminfrom .models import post, category, profile# Register your models here.admin.site.register(post)admin.site.register(profile)admin.site.register(category)

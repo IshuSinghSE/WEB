@@ -1,17 +1,18 @@
 {%  extends 'base.html' %}
+{% load static %}
 {% block title %} 
 Add Post
 {% endblock %}
 
 
 {% block content %}
-
+</br>
 </br>
 {% if user.is_authenticated %}
 <div class="form-control">
 
     <h1 class=" text-center font-weight-light">ADD POST</h1>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data" >
     {% csrf_token %} 
     {{ form.as_p }}
     {{ form.media }}
@@ -19,18 +20,15 @@ Add Post
     </form>
 
 </br>
-<hr class="invis">
+</br>
+</br>
+</br>
+</br>
+
+
 </div>
 {% endif %}
-</br>
-</br>
-</br>
-</br>
-<hr class="invis">    
-<script>
-    var name = "{{ user.id }}";
-    document.getElementById("author").value = name;
 
+<script src="{% static 'js/author.js' %}"></script>
 
-</script>
 {% endblock %}

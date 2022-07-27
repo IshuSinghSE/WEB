@@ -20,7 +20,7 @@ class SignUpForm(UserCreationForm):
 		self.fields['password2'].widget.attrs['class'] = 'form-control form-control-lg'
 
 
-class UserEditForm(UserChangeForm):
+class UserEditForm(forms.ModelForm):
 	username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control form-control-lg'}))
 	first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control form-control-lg'}))
 	last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control form-control-lg'}))
@@ -37,7 +37,8 @@ class UserEditForm(UserChangeForm):
 
 		def __init__(self, *args, **kwargs):
 			super(UserChangeForm, self).__init__(*args, **kwargs)
-			
+	
+
 class PasswordEditForm(PasswordChangeForm):
 	old_password= forms.CharField(max_length=100, widget=forms.PasswordInput(attrs={'class': 'form-control form-control-lg'}))
 	new_password1 = forms.CharField(max_length=100, widget=forms.PasswordInput(attrs={'class': 'form-control form-control-lg'}))
@@ -51,6 +52,7 @@ class PasswordEditForm(PasswordChangeForm):
 		super(PasswordChangeForm, self).__init__(*args, **kwargs)
 		self.fields['new_password1'].label = "New password"	
 		self.fields['new_password2'].label = "Comfirm password"
+
 
 
 '''

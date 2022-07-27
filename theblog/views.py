@@ -5,6 +5,7 @@ from .models import post, category
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from .forms import PostForm, EditForm
+
 # Create your views here.
 
 
@@ -12,12 +13,14 @@ class HomeView(ListView):
     model = post
     template_name ='index.html'
     ordering = ['-date']
+    paginate_by = 3
 
     def get_context_data(self, *args, **kwargs):
         category_menu = category.objects.all()
         context = super(HomeView, self).get_context_data(*args, **kwargs)
         context["category_menu"] = category_menu
         return context
+
 
 
 class ArticleView(DetailView):

@@ -3,19 +3,21 @@
 
 {% block content %}
 
+
+
     
 
         <div class="page-title lb single-wrapper">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <h2><i class="fa fa-star bg-orange"></i> Author by: {{ post.title }} </h2>
+                        <h2><i class="fa fa-star bg-orange"></i> Author by: {{ page_user.profile.first_name|title }} {{ user.last_name|title }} </h2>
                     </div><!-- end col -->
                     <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
                             <li class="breadcrumb-item"><a href="#">Author</a></li>
-                            <li class="breadcrumb-item active"></li>
+                            <li class="breadcrumb-item active">{{ user.first_name|title }} {{ user.last_name|title }}</li>
                         </ol>
                     </div><!-- end col -->                    
                 </div><!-- end row -->
@@ -35,8 +37,10 @@
                                     </div><!-- end col -->
 
                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                        <h4><a href="#">Jessica</a></h4>
-                                        <p>Quisque sed tristique felis. Lorem <a href="#">visit my website</a> amet, consectetur adipiscing elit. Phasellus quis mi auctor, tincidunt nisl eget, finibus odio. Duis tempus elit quis risus congue feugiat. Thanks for stop Tech Blog!</p>
+                                        <h4><a href="#">{{ post.author.username|title }} {{ user.last_name|title }}</a></h4>
+                                        <p>Quisque sed tristique felis. Lorem <a href="#">visit my website</a>
+                                        	{{ post.author.profile.bio }}
+                                        </p>
 
                                         <div class="topsocial">
                                             <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>
@@ -490,4 +494,14 @@
                 </div><!-- end row -->
             </div><!-- end container -->
         </section>
+
+
+
+
+
+
+
+
+
+
 {% endblock %}
