@@ -40,7 +40,11 @@
                             </div><!-- end title -->
 
                             <div class="single-post-media">
-                                <img src="{% static 'upload/tech_menu_08.jpg' %}" alt="" class="img-fluid">
+                                {% if post.image %}
+                                      <img src="{{ post.image.url }}" alt="" class="img-fluid">
+                                {% else %}
+                                      <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid">
+                                {% endif %}
                             </div><!-- end media -->
 
                             <div class="blog-content">  
@@ -168,7 +172,7 @@
                                     </div><!-- end col -->
 
                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                        <h4><a href="#">{{ post.author }}</a></h4>
+                                        <h4><a href="#">{{ post.author.first_name|title }} {{ post.author.last_name|title }}</a></h4>
                                         <p>Quisque sed tristique felis. Lorem <a href="#">visit my website</a> amet, consectetur adipiscing elit. Phasellus quis mi auctor, tincidunt nisl eget, finibus odio. Duis tempus elit quis risus congue feugiat. Thanks for stop Tech Blog!</p>
 
                                         <div class="topsocial">

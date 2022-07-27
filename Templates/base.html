@@ -424,19 +424,27 @@
                                 </ul>
                             </li>
                             {% if category_menu %}
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="{% url 'gadgets' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Category</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="{% url 'gadgets' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Category</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                                {% for item in category_menu %}
-                                     <a href="{% url 'category' item|slugify %}" class="dropdown-item">{{ item }}</a>
-                                {% endfor %}    
+                                    {% for item in category_menu %}
+                                         <a href="{% url 'category' item|slugify %}" class="dropdown-item">{{ item }}</a>
+                                    {% endfor %}    
+
+                                </div>    
+                                </li> 
+                            {% else %}
+
+                              <li class="nav-item">
+                                <a class="nav-link" href="{% url 'category_list' %}">Categories</a>
+                              </li>
+
 
                             {% endif %}   
                                 
                               
-                            </div>    
-                            </li>   
+                                  
 
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'gadgets' %}">Gadgets</a>
@@ -454,22 +462,43 @@
                         
                         <ul class="navbar-nav mr-2">
                         {% if user.is_authenticated %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'edit_profile' %}"><i class="fa fa-rss"></i> | profile </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-rss"></i> | Logout</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href=""><i class="fa fa-rss"></i> |{{ post.author }} </a>
-                            </li>
+
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="{% url 'gadgets' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >{{ user.username }} </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">  
+
+                                <a href="{% url 'edit_profile' %}" class="dropdown-item"> Edit Profile </a>
+                                <a href="{% url 'add_post' %}" class="dropdown-item">Add Post</a>
+                                <a href="" class="dropdown-item">update post</a>
+                                <a href="" class="dropdown-item">delete post</a>
+                                    <div class="dropdown-divider"></div>                            
+                                <a href="{% url 'logout' %}" class="dropdown-item"> Logout</a>
+                                                       
+                            </div>    
+                            </li> 
+<!--
+                            <small>  
+                            <a href=""> <i class="fa fa-edit">  edit  </i>
+                            </a> |
+                            <a href=""> <i class="fa fa-trash">  delete  </i>
+                            </a>
+                            </small>
+
+-->
+
+
+
+                           
                         {% else %}    
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'signup' %}"><i class="fa fa-android"></i>| SignUp</a>
+                                <a class="nav-link" href="{% url 'login' %}">  Login </a>
                             </li>
+                            |
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'login' %}"><i class="fa fa-apple">  | Login</i></a>
+                                <a class="nav-link" href="{% url 'signup' %}"> SignUp</a>
                             </li>
+                           
                         {% endif %}    
                         </ul>
 

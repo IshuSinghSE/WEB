@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from .forms import PostForm, EditForm
 # Create your views here.
 
+
 class HomeView(ListView):
     model = post
     template_name ='index.html'
@@ -15,9 +16,9 @@ class HomeView(ListView):
     def get_context_data(self, *args, **kwargs):
         category_menu = category.objects.all()
         context = super(HomeView, self).get_context_data(*args, **kwargs)
-
         context["category_menu"] = category_menu
         return context
+
 
 class ArticleView(DetailView):
     model = post
@@ -51,16 +52,41 @@ class UpdatePostView(UpdateView):
     template_name ='update_post.html'
     #fields = ['title','author','category','body','image']
 
+    def get_context_data(self, *args, **kwargs):
+        category_menu = category.objects.all()
+        context = super(UpdatePostView, self).get_context_data(*args, **kwargs)
+        context["category_menu"] = category_menu
+        return context
+
+
 class DeletePostView(DeleteView):
     model = post
     template_name = 'delete_post.html'
     success_url = reverse_lazy('index')
 
+    def get_context_data(self, *args, **kwargs):
+        category_menu = category.objects.all()
+        context = super(DeletePostView, self).get_context_data(*args, **kwargs)
+        context["category_menu"] = category_menu
+        return context
+
+
 def CategoryView(request, categories):
     category_posts = post.objects.filter(category=categories.replace('-',' '))
     return render(request, 'categories.html', {'categories':categories.replace('-',' ').title(), 'category_posts':category_posts})
 
-   
+    def get_context_data(self, *args, **kwargs):
+        category_menu = category.objects.all()
+        context = super(CategoryView, self).get_context_data(*args, **kwargs)
+        context["category_menu"] = category_menu
+        return context
+ 
+
+def CategoryList(request):
+    category_list_menu = category.objects.all()
+    return render(request, 'categories_list.html',{'category_list_menu':category_list_menu})
+
+
 def LikeView(request, pk):
     posts = get_object_or_404(post,id=request.POST.get('like_id'))
     liked = False
@@ -73,11 +99,8 @@ def LikeView(request, pk):
     return HttpResponseRedirect(reverse('article_detail', args=[str(pk)]))
 
 
-'''
-class Contact(ContactView):
-    model = post
-    template_name = 'contact.html'
-'''
+
+
 def index(request):
     return render(request,'index.html')
 

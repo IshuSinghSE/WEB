@@ -82,7 +82,7 @@
                                         <div class="post-media">
                                             <a href="{% url 'article_detail' post.pk %}" title="">
                                           {% if post.image %}
-                                                <img src="{{ post.image.url }}" alt="" class="img-fluid">
+                                                <img src="{{ post.image.url }}" alt=""  class="img-fluid">
                                           {% else %}
                                                 <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid">
                                           {% endif %}
@@ -124,7 +124,7 @@
                                 <div class="col-lg-10 offset-lg-1">
                                     <div class="banner-spot clearfix">
                                         <div class="banner-img">
-                                            <img src="{% static 'upload/banner_02.jpg' %}" alt="" class="img-fluid">
+                                            <img src="{% static 'upload/banner_02.jpg' %}" alt=" " class="img-fluid">
                                         </div><!-- end banner-img -->
                                     </div><!-- end banner -->
                                 </div><!-- end col -->

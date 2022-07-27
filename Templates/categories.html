@@ -44,12 +44,14 @@
                                       
                                     <div class="blog-meta big-meta col-md-8">
                                         <h4><a href="{% url 'single' %}" title="">{{ post.title }}</a></h4>
-                                        <small>  
-                                        <a href="{% url 'update_post' post.pk %}"> <i class="fa fa-edit">  edit  </i>
-                                        </a> |
-                                        <a href="{% url 'delete_post' post.pk %}"> <i class="fa fa-trash">  delete  </i>
-                                        </a>
-                                        </small>
+                                        {% if user.id == post.author.id %}
+                                            <small>  
+                                            <a href="{% url 'update_post' post.pk %}"> <i class="fa fa-edit">  edit  </i>
+                                            </a> |
+                                            <a href="{% url 'delete_post' post.pk %}"> <i class="fa fa-trash">  delete  </i>
+                                            </a>
+                                            </small>
+                                        {% endif %}
                                         <p>{{ post.body|slice:':100' }}</p>
                                         <small class="firstsmall"><a class="bg-orange" href="{% url 'category' post.category %}" title="">{{ post.category }}</a></small>
                                         <small><a href="{% url 'single' %}" title="">{{ post.date }}</a></small>
