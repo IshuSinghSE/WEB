@@ -5,6 +5,7 @@ from .models import post, category
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from .forms import PostForm, EditForm
+from django.core.paginator import Paginator
 
 # Create your views here.
 
