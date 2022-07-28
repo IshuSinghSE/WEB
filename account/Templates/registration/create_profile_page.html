@@ -1,7 +1,7 @@
 {%  extends 'base.html' %}
 {% load static %}
 {% block title %} 
-Add Post
+Create Profile
 {% endblock %}
 
 
@@ -11,14 +11,14 @@ Add Post
 {% if user.is_authenticated %}
 <div class="form-control">
 
-    <h1 class=" text-center font-weight-light">ADD POST</h1>
+    <h1 class=" text-center font-weight-light">Create Profile</h1>
 
     <form method="POST" enctype="multipart/form-data">
 
     {% csrf_token %} 
     {{ form.as_p }}
     {{ form.media }}
-    <button class="btn btn-secondary " >Post</button>    
+    <button class="btn btn-secondary " >Create Profile</button>    
     </form>
 
 </br>
@@ -30,9 +30,5 @@ Add Post
 
 </div>
 {% endif %}
-
-<script src="{% static 'js/author.js' %}"></script>
-
-</script>
 {% endblock %}
 

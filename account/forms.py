@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, Password
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django import forms
+from theblog.models import profile
 
 class SignUpForm(UserCreationForm):
 	email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-control form-control-lg'}))
@@ -53,7 +54,21 @@ class PasswordEditForm(PasswordChangeForm):
 		self.fields['new_password1'].label = "New password"	
 		self.fields['new_password2'].label = "Comfirm password"
 
+class ProfilePageForm(forms.ModelForm):
+	class Meta:
+		model = profile
+		fields = ('bio', 'profile_pic', 'facebook_url', 'instagram_url', 'twitter_url', 'pinterest_url', 'website_url')
+		
+		widgets = {
+			'bio': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
+			'profile_pic': forms.FileInput(attrs={'class': 'form-control form-control-lg'}),
+			'facebook_url': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
+			'instagram_url': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
+			'twitter_url': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
+			'pinterest_url': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
+			'website_url': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
 
+			}
 
 '''
 class UserLoginForm(UserChangeForm):

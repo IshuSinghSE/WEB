@@ -11,17 +11,18 @@ class profile(models.Model):
      user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
      profile_pic = models.ImageField(blank=True,null=True,upload_to="Images/profile")
      bio = models.TextField()
-     facebook_url   = models.URLField(max_length=200,blank=True, null= True )
-     instagram_url  = models.URLField(max_length=200,blank=True, null= True )
-     twitter_url    = models.URLField(max_length=200,blank=True, null= True )
-     pinterest_url  = models.URLField(max_length=200,blank=True, null= True )
-     youtube_url    = models.URLField(max_length=200,blank=True, null= True )
-     website_url    = models.URLField(max_length=200,blank=True, null= True )
+     facebook_url   = models.URLField(max_length=200,blank=True, null=True )
+     instagram_url  = models.URLField(max_length=200,blank=True, null=True )
+     twitter_url    = models.URLField(max_length=200,blank=True, null=True )
+     pinterest_url  = models.URLField(max_length=200,blank=True, null=True )
+     youtube_url    = models.URLField(max_length=200,blank=True, null=True )
+     website_url    = models.URLField(max_length=200,blank=True, null=True )
      
      def __str__(self):
        return str(self.user)
 
-
+     def get_absolute_url(self):
+        return reverse('index')
 
 # POSTS #
 class post(models.Model):

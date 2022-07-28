@@ -471,10 +471,14 @@
                                 {{ user.username }} </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">  
 
-                                <a href="" class="dropdown-item"> Profile </a>
                                 <a href="{% url 'edit_profile' %}" class="dropdown-item"> Edit Profile </a>
                                 <a href="{% url 'add_post' %}" class="dropdown-item">Add Post</a>
-                                <a href="" class="dropdown-item">update post</a>
+                                {% if user.profile.id %}
+                                    <a href="{% url 'show_profile' user.profile.id %}" class="dropdown-item"> Profile </a>
+                                    <a href="{% url 'edit_profile_page' user.profile.id %}" class="dropdown-item">edit profile page</a>
+                                {% else %}
+                                    <a href="{% url 'create_profile_page' %}" class="dropdown-item">create profile page</a>
+                                {% endif %}
                                 <a href="" class="dropdown-item">delete post</a>
                                     <div class="dropdown-divider"></div>                            
                                 <a href="{% url 'logout' %}" class="dropdown-item"> Logout </a>
