@@ -106,8 +106,8 @@
                                             {{ post.snippet }}
                                         </p>
                                         <small class="firstsmall"><a class="bg-orange" href="{% url 'category' post.category|slugify %}" title="">{{ post.category }}</a></small>
-                                        <small><a href="{% url 'single' %}" title="">{{ post.date }}</a></small>
-                                        <small><a href="{% url 'author' %}" title="">By {{ post.author.first_name }} {{ post.author.last_name }}</a></small>
+                                        <small><a href="{% url 'single' %}" title=""><i class="fa fa-clock-o"></i>  {{ post.date }}</a></small>
+                                        <small><a href="{% url 'show_profile' post.author.profile.id %}" title="">By {{ post.author.first_name }} {{ post.author.last_name }}</a></small>
                                        <!-- <small><a href="{% url 'single' %}" title="">
                                         <i class="fa fa-eye"></i> 1114</a></small> -->
                                     </div><!-- end meta -->

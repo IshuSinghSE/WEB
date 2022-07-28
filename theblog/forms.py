@@ -12,7 +12,7 @@ for item in choices:
 class PostForm(forms.ModelForm):
 	class Meta:
 		model = post 
-		fields = ('title','author','category','body','image', 'snippet')
+		fields = ('title','author','category','body','image', 'snippet', 'status')
 		widgets = {
 		'title': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
 		'author': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'id':'author','type':'hidden'}),
@@ -20,13 +20,14 @@ class PostForm(forms.ModelForm):
 		'body': forms.Textarea(attrs={'class': 'form-control form-control-lg'}),
 		'image': forms.FileInput(attrs={'class': 'form-control form-control-lg'}),
 		'snippet': forms.Textarea(attrs={'class': 'form-control form-control-lg'}),
+		'status': forms.Select(attrs={'class': 'form-control form-control-lg'}),
 
 		}
 
 class EditForm(forms.ModelForm):
 	class Meta:
 		model = post 
-		fields = ('title','category','body','image', 'snippet')
+		fields = ('title','category','body','image', 'snippet', 'status')
 		widgets = {
 		'title': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
 		#'author': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
@@ -34,6 +35,7 @@ class EditForm(forms.ModelForm):
 		'body': forms.Textarea(attrs={'class': 'form-control form-control-lg'}),
 		'image': forms.FileInput(attrs={'class': 'form-control form-control-lg'}),
 		'snippet': forms.Textarea(attrs={'class': 'form-control form-control-lg'}),
+		'status': forms.Select(attrs={'class': 'form-control form-control-lg'}),
 
 
 		}
