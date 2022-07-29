@@ -40,7 +40,7 @@ class post(models.Model):
     body     = RichTextField(blank=True,null=True)
     image    = models.ImageField(upload_to="Images_post/",blank=True,null=True)
     snippet  = models.CharField(max_length=300,default='Vivamus non condimentum orci. Pellentesque venenatis nibh sit amet est vehicula lobortis. Cras eget aliquet eros. Nunc lectus elit, suscipit at nunc sed, finibus imperdiet ipsum.')
-    date     = models.DateField(default=timezone.now)
+    date     = models.DateField(default=timezone.now())
     created  = models.DateField(auto_now_add=True)
     updated  = models.DateField(auto_now=True)
     status   = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft') 
