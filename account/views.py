@@ -20,7 +20,7 @@ def login_user(request):
 
 		if user is not None:
 				login(request, user)
-				messages.success(request, ("Welcome " + username + " have Logged in Successfuly! "))
+				messages.success(request, ("Welcome @" + username + " have Logged in Successfuly! "))
 				return redirect('index')
 		else:
 			messages.error(request, ("Something went wrong, Try Again! "))

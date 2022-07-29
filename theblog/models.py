@@ -20,7 +20,7 @@ class post(models.Model):
     body     = RichTextField(blank=True,null=True)
     image    = models.ImageField(upload_to="Images_post/",blank=True,null=True)
     snippet  = models.CharField(max_length=300,default='Vivamus non condimentum orci. Pellentesque venenatis nibh sit amet est vehicula lobortis. Cras eget aliquet eros. Nunc lectus elit, suscipit at nunc sed, finibus imperdiet ipsum.')
-    publish  = models.DateTimeField(auto_now_add=True)
+    publish  = models.DateTimeField(default=timezone.now)
     created  = models.DateField(auto_now_add=True)
     updated  = models.DateField(auto_now=True)
     status   = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft') 
@@ -70,5 +70,15 @@ class profile(models.Model):
 
      def get_absolute_url(self):
         return reverse('index')
+
+
+class Comment(models.Model):
+    Post = models.ForeignKey(post, related_name="comments", on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    body = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '%s - %s' % (self.Post.title, self.name)
 
 

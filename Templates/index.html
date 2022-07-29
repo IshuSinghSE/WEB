@@ -4,8 +4,29 @@
 {% block content %}
 
     <section class="section first-section">
+
         <div class="container-fluid">
+
             <div class="masonry-blog clearfix">
+        {% if messages %}
+            {% for message in messages %}
+                  
+                <div class="alert alert-warning alert-dismissible fade show" id="mess" role="alert">
+                  <strong><i class="fa fa-bell-o" aria-hidden="true"></i></strong> {{ message }}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>      
+                 
+                <script type="text/javascript">
+                function startTime() {
+                  const date = new Date();
+                  document.getElementById("mess").innerHTML = date.toLocaleTimeString();
+                  setTimeout(function() {startTime()}, 100);
+                }
+                </script>   
+            {% endfor %}
+        {% endif %}
                
                 <div class="first-slot">
                     <div class="masonry-box post-media">
@@ -43,7 +64,7 @@
 
                 <div class="last-slot">
                     <div class="masonry-box post-media">
-                         <img src="{% static 'upload/tech_03.jpg' %}" alt="" class="img-fluid">
+                         <img src="{% static 'upload/tech_02.jpg' %}" alt="" class="img-fluid">
                          <div class="shadoweffect">
                             <div class="shadow-desc">
                                 <div class="blog-meta">
@@ -83,7 +104,7 @@
                                         <div class="post-media">
                                             <a href="{% url 'article_detail' post.pk %}" title="">
                                           {% if post.image %}
-                                                <img src="{{ post.image.url }}" alt=""  class="img-fluid">
+                                                <img src="{{ post.image.url }}" alt="{{ post.title }}" width='600px' height='500px' class="img-fluid">
                                           {% else %}
                                                 <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid">
                                           {% endif %}
@@ -106,7 +127,7 @@
                                             {{ post.snippet }}
                                         </p>
                                         <small class="firstsmall"><a class="bg-orange" href="{% url 'category' post.category|slugify %}" title="">{{ post.category }}</a></small>
-                                        <small><a href="{% url 'single' %}" title=""><i class="fa fa-clock-o"></i>  {{ post.publish }}</a></small>
+                                        <small><a href="{% url 'single' %}" title=""><i class="fa fa-clock-o"></i>  {{ post.publish.date }}</a></small>
                                         <small><a href="#" title="">By {{ post.author.first_name }} {{ post.author.last_name }}</a></small>
                                        <!-- <small><a href="{% url 'single' %}" title="">
                                         <i class="fa fa-eye"></i> 1114</a></small> -->
@@ -137,7 +158,7 @@
                                 <div class="col-md-4">
                                     <div class="post-media">
                                         <a href="{% url 'single' %}" title="">
-                                            <img src="{% static 'upload/tech_blog_04.jpg' %}" alt="" class="img-fluid">
+                                            <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid">
                                             <div class="hovereffect"></div>
                                         </a>
                                     </div><!-- end media -->
@@ -222,7 +243,7 @@
                                 <div class="blog-box">
                                     <div class="post-media">
                                         <a href="{% url 'single' %}" title="">
-                                            <img src="{% static 'upload/tech_video_01.jpg' %}" alt="" class="img-fluid">
+                                            <img src="{% static 'upload/tech_video.jpg' %}" alt="" class="img-fluid">
                                             <div class="hovereffect">
                                                 <span class="videohover"></span>
                                             </div><!-- end hover -->
@@ -238,7 +259,7 @@
                                 <div class="blog-box">
                                     <div class="post-media">
                                         <a href="{% url 'single' %}" title="">
-                                            <img src="{% static 'upload/tech_video_02.jpg' %}" alt="" class="img-fluid">
+                                            <img src="{% static 'upload/tech_video.jpg' %}" alt="" class="img-fluid">
                                             <div class="hovereffect">
                                                 <span class="videohover"></span>
                                             </div><!-- end hover -->
@@ -254,7 +275,7 @@
                                 <div class="blog-box">
                                     <div class="post-media">
                                         <a href="{% url 'single' %}" title="">
-                                            <img src="{% static 'upload/tech_video_03.jpg' %}" alt="" class="img-fluid">
+                                            <img src="{% static 'upload/tech_video.jpg' %}" alt="" class="img-fluid">
                                             <div class="hovereffect">
                                                 <span class="videohover"></span>
                                             </div><!-- end hover -->
@@ -273,7 +294,7 @@
                                 <div class="list-group">
                                     <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                         <div class="w-100 justify-content-between">
-                                            <img src="{% static 'upload/tech_blog_08.jpg' %}" alt="" class="img-fluid float-left">
+                                            <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
                                             <h5 class="mb-1">5 Beautiful buildings you need..</h5>
                                             <small>12 Jan, 2016</small>
                                         </div>
@@ -289,7 +310,7 @@
 
                                     <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                         <div class="w-100 last-item justify-content-between">
-                                            <img src="{% static 'upload/tech_blog_03.jpg' %}" alt="" class="img-fluid float-left">
+                                            <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
                                             <h5 class="mb-1">Did you see the most beautiful..</h5>
                                             <small>07 Jan, 2016</small>
                                         </div>
@@ -304,7 +325,7 @@
                                 <div class="list-group">
                                     <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                         <div class="w-100 justify-content-between">
-                                            <img src="{% static 'upload/tech_blog_02.jpg' %}" alt="" class="img-fluid float-left">
+                                            <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
                                             <h5 class="mb-1">Banana-chip chocolate cake recipe..</h5>
                                             <span class="rating">
                                                 <i class="fa fa-star"></i>
@@ -318,7 +339,7 @@
 
                                     <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                         <div class="w-100 justify-content-between">
-                                            <img src="{% static 'upload/tech_blog_03.jpg' %}" alt="" class="img-fluid float-left">
+                                            <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
                                             <h5 class="mb-1">10 practical ways to choose organic..</h5>
                                             <span class="rating">
                                                 <i class="fa fa-star"></i>
@@ -332,7 +353,7 @@
 
                                     <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                         <div class="w-100 last-item justify-content-between">
-                                            <img src="{% static 'upload/tech_blog_07.jpg' %}" alt="" class="img-fluid float-left">
+                                            <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
                                             <h5 class="mb-1">We are making homemade ravioli..</h5>
                                             <span class="rating">
                                                 <i class="fa fa-star"></i>
@@ -351,31 +372,38 @@
                             <h2 class="widget-title">Follow Us</h2>
 
                             <div class="row text-center">
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
                                     <a href="#" class="social-button facebook-button">
                                         <i class="fa fa-facebook"></i>
                                         <p>27k</p>
                                     </a>
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
+                                    <a href="#" class="social-button instagram-button">
+                                        <i class="fa fa-instagram"></i>
+                                        <p>25k</p>
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
                                     <a href="#" class="social-button twitter-button">
                                         <i class="fa fa-twitter"></i>
                                         <p>98k</p>
                                     </a>
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
                                     <a href="#" class="social-button google-button">
                                         <i class="fa fa-google-plus"></i>
-                                        <p>17k</p>
+                                        <p>27k</p>
                                     </a>
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
                                     <a href="#" class="social-button youtube-button">
                                         <i class="fa fa-youtube"></i>
-                                        <p>22k</p>
+                                        <p>31k</p>
                                     </a>
                                 </div>
                             </div>

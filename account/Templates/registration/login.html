@@ -15,7 +15,7 @@ login...
    
         
         <!-- Pills navs -->
-        <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+        <ul class="nav nav-pills nav-justified m-4" id="ex1" role="tablist">
           <li class="nav-item" role="presentation">
             <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" href="{% url 'login' %}" role="tab"
               aria-controls="pills-login" aria-selected="true">Login</a>
@@ -33,37 +33,54 @@ login...
             <form method="POST" >
              {% csrf_token %} 
              {{ form.as_p }}
+
               <div class="text-center mb-3">
+                <br>
                 <p>Sign in with:</p>
-                <button type="button" class="btn btn-link btn-floating mx-1">
-                  <i class="fa fa-facebook-f"></i>
-                </button>
 
-                <button type="button" class="btn btn-link btn-floating mx-1">
-                  <i class="fa fa-google"></i>
-                </button>
+                
+                <div class="row text-center">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 "></div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-1 ">
+                        <a href="#" class="social-button facebook-button">
+                            <i class="fa fa-facebook"></i>                     
+                        </a>
+                    </div>
 
-                <button type="button" class="btn btn-link btn-floating mx-1">
-                  <i class="fa fa-twitter"></i>
-                </button>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-1">
+                        <a href="#" class="social-button twitter-button">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </div>
 
-                <button type="button" class="btn btn-link btn-floating mx-1">
-                  <i class="fa fa-github"></i>
-                </button>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-1">
+                        <a href="#" class="social-button g-button">
+                            <i class="fa fa-google"></i>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-1">
+                        <a href="#" class="social-button github-button">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+
+                </div>
               </div>
 
+              <br>
               <p class="text-center">or</p>
 
               <!-- Email input -->
-              <div class="form-outline mb-4">
-                <label class="form-label" for="loginName">Email or username</label>
-                <input type="text" id="loginName" class="form-control" name="username"/>
+              <div class="form-outline  m-4">
+               <!-- <label class="form-label select-label" for="loginName">Email or username</label> -->
+                <input type="text" id="loginName" class="form-control" name="username" placeholder="Email or username" />
               </div>
 
               <!-- Password input -->
-              <div class="form-outline mb-4">
-                <label class="form-label" for="loginPassword">Password</label>
-                <input type="password" id="loginPassword" class="form-control" name="password" />
+              <div class="form-outline  m-4 ">
+              <!--  <label class="form-label" for="loginPassword">Password</label> -->
+                <input type="password" id="loginPassword" class="form-control" name="password" placeholder="password" />
               </div>
 
               <!-- 2 column grid layout -->
@@ -83,10 +100,11 @@ login...
              
 
               <!-- Submit button -->
-              <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+              <button type="submit" class="btn btn-primary btn-block m-6 ">Sign in</button>
 
               <!-- Register buttons -->
               <div class="text-center">
+              </br>
                 <p>Not a member? <a href="#!">Register</a></p>
               </div>
             </form>        
@@ -97,7 +115,6 @@ login...
 
 
 
-</br>
 <hr class="invis">
 </div>
 

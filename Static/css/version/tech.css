@@ -150,12 +150,16 @@ h5 {
 }
 
 .social-button {
+    border-radius: 5px;
     background-color: #dddddd;
     display: table;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.5rem;
     color: #ffffff !important;
     position: relative;
-    width: 100%;
+    width: 90% ;
+    margin: 10px 10px 0px 20px;
+  
+    
 }
 
 .social-button .fa {
@@ -183,6 +187,18 @@ h5 {
 
 .youtube-button {
     background-color: #cd201f;
+}
+
+.github-button {
+    background-color: #171515;
+}
+
+.g-button {
+    background-color: #4285f4;
+}
+
+.instagram-button {
+    background-color: #8134af;
 }
 
 .blog-meta .bg-orange {
@@ -257,6 +273,8 @@ h5 {
 .color-orange a {
     background-color: #FF6347 !important;
 }
+
+
 
 .footer a:hover,
 .footer .fa:hover,
