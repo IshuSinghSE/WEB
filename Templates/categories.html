@@ -3,23 +3,30 @@
 
 {% block content %}
 
-    <section class="section first-section">
-        <div class="container-fluid">
-            <div class="masonry-blog clearfix">
-              
-                
-            </div><!-- end masonry -->
-        </div>
-    </section>
+        <div class="page-title lb single-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <h2><i class="fa fa-list-alt bg-orange"></i>{{ categories }} Category <small class="hidden-xs-down hidden-sm-down">Nulla felis eros, varius sit amet volutpat non. </small></h2>
+                    </div><!-- end col -->
+                    <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Blog</a></li>
+                            <li class="breadcrumb-item active">{{ categories }}</li>
+                        </ol>
+                    </div><!-- end col -->                    
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </div><!-- end page-title -->
+
 
     <section class="section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                     <div class="page-wrapper">
-                        <div class="blog-top clearfix">
-                            <h2 class="pull-left">{{ categories }} Category <a href="#"><i class="fa fa-rss"></i></a></h2>
-                        </div><!-- end blog-top -->
+                        
 
                         <div class="blog-list clearfix">
 
@@ -52,9 +59,9 @@
                                             </a>
                                             </small>
                                         {% endif %}
-                                        <p>{{ post.body|slice:':100' }}</p>
+                                        <p>{{ post.snippet }}</p>
                                         <small class="firstsmall"><a class="bg-orange" href="{% url 'category' post.category %}" title="">{{ post.category }}</a></small>
-                                        <small><a href="{% url 'single' %}" title="">{{ post.date }}</a></small>
+                                        <small><a href="{% url 'single' %}" title=""><i class="fa fa-clock-o"></i> {{ post.publish }}</a></small>
                                         <small><a href="{% url 'author' %}" title="">By {{ post.author.first_name }} {{ post.author.last_name }}</a></small>
                                        <!-- <small><a href="{% url 'single' %}" title="">
                                         <i class="fa fa-eye"></i> 1114</a></small> -->
@@ -110,23 +117,44 @@
                         </div><!-- end blog-list -->
                     </div><!-- end page-wrapper -->
 
+                <!--   Pagination Start    --->
+
                     <hr class="invis">
+
+                {% if is_paginated %}
 
                     <div class="row">
                         <div class="col-md-12">
                             <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-start">
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
+
+                                    {% if page_obj.has_previous %}
+                                        <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Prev</a>
+                                    {% endif %}
+
+                                    <!-- Navigate pages -->
+                                    {% for num in page_obj.paginator.page_range %}
+                                        {% if page_obj.number == num %}
+                                            <li class="page-item"><a class="page-link active" href="?page={{ num }}">{{ num }}</a></li>
+                                        {% elif num > page_obj.number|add:'-5' and num < page_obj.number|add:'5' %}
+                                            <li class="page-item"><a class="page-link active"  href="?page={{ num }}">{{ num }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if page_obj.has_next %}
+                                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>
+                                    {% endif %}              
+                                   
                                 </ul>
                             </nav>
                         </div><!-- end col -->
                     </div><!-- end row -->
-                </div><!-- end col -->
+                {% endif %}
+
+                <!--   Pagination END    --->
+                </div> <!-- end col -->
 
                 <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                     <div class="sidebar">

@@ -13,8 +13,8 @@ from django.core.paginator import Paginator
 class HomeView(ListView):
     model = post
     template_name ='index.html'
-    ordering = ['-date']
-    paginate_by = 3
+    ordering = ['-publish']
+    paginate_by = 10
 
     def get_context_data(self, *args, **kwargs):
         category_menu = category.objects.all()

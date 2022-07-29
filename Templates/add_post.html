@@ -31,8 +31,14 @@ Add Post
 </div>
 {% endif %}
 
-<script src="{% static 'js/author.js' %}"></script>
-
+<script>
+  
+var name = "{{ user.id }}";
+document.getElementById("author").value = name;
+  
+    
 </script>
+
+
 {% endblock %}
 

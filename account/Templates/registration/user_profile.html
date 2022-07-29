@@ -10,19 +10,17 @@
         <div class="page-title lb single-wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <h2><i class="fa fa-star bg-orange"></i> Author by: {{ page_user.user.first_name|title }} {{ page_user.user.last_name|title }} </h2>
-                    </div><!-- end col -->
-                    <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
+                                       
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
                             <li class="breadcrumb-item"><a href="#">Author</a></li>
                             <li class="breadcrumb-item active">{{ page_user.user.first_name|title }} {{ page_user.user.last_name|title }}</li>
                         </ol>
-                    </div><!-- end col -->                    
+                                      
                 </div><!-- end row -->
             </div><!-- end container -->
         </div><!-- end page-title -->
+
 
         <section class="section">
             <div class="container">
@@ -42,8 +40,8 @@
 
                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
                                         <h4><a href="#">{{ page_user.user.first_name|title }} {{ page_user.user.last_name|title }}</a></h4>
-                                        <p>Quisque sed tristique felis. Lorem <a href="#">visit my website</a>
-                                        	{{ page_user.bio }}
+                                        <p>{{ page_user.bio }}<a href="#"> visit my website </a>
+                                        	
                                         </p>
 
                                         <div class="topsocial">
