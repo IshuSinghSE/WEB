@@ -31,14 +31,14 @@ class ArticleView(DetailView):
     def get_context_data(self, *args, **kwargs):
         category_menu = category.objects.all()
         context = super(ArticleView, self).get_context_data(*args, **kwargs)
-        stuff = get_object_or_404(post, id=self.kwargs['pk'])
-        total_likes = stuff.total_likes()
+        #stuff = get_object_or_404(post, id=self.kwargs[slug])
+        #total_likes = stuff.total_likes()
 
         liked = False
-        if stuff.likes.filter(id=self.request.user.id).exists():
-            liked = True
+        #if stuff.likes.filter(id=self.request.user.id).exists():
+         #   liked = True
 
-        context["total_likes"] = total_likes
+       # context["total_likes"] = total_likes
         context["liked"] = liked
         context["category_menu"] = category_menu
         return context

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block content %}
 
@@ -22,7 +23,7 @@
                                 <h3>{{ post.title }}</h3>
 
                                 <div class="blog-meta big-meta">
-                                    <small><a href="{% url 'single' %}" title="">{{ post.publish.date }}</a></small>
+                                    <small><a href="{% url 'single' %}" title="">{{ post.publish|naturaltime }}</a></small>
                                     <small><a href="#" title="">by {{ post.author.first_name }}  {{ post.author.last_name }}</a></small> 
                                 <!--    <small><a href="#" title=""><i class="fa fa-eye"></i> 2344</a></small>  -->
                                 </div><!-- end meta -->
@@ -93,13 +94,14 @@
 
                                 <div class="post-sharing">
                                     <ul class="list-inline">
+                                        
                                         <form action="{% url 'post_likes' post.pk %}" method="POST">
                                             {% csrf_token %} 
                                             {% if liked %}  
                                                 <li><button type="submit", name="like_id", value="{{ post.id }}" class="btn btn-danger btn-sm">
-                                                    <i class="fa fa-like"></i><span class="down-mobile">  {{ total_likes }}  UnLike  </span></button></li>
+                                                    <i class="fa fa-heart"></i><span class="down-mobile">  {{ total_likes }}  UnLike  </span></button></li>
                                             {% else %}                                 
-                                                <li><button type="submit", name="like_id", value="{{ post.id }}" class="btn btn-primary btn-sm"><i class="fa fa-like"></i><span class="down-mobile">  {{ total_likes }}  Likes  </span></button></li>
+                                                <li><button type="submit", name="like_id", value="{{ post.id }}" class="btn btn-primary btn-sm"><i class="fa fa-heart-o"></i><span class="down-mobile">  {{ total_likes }}  Likes  </span></button></li>
                                             {% endif %}   
                                         </form></br>
 
@@ -399,7 +401,7 @@
                                     <div class="list-group">
                                         <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="{% static 'upload/tech_blog_0108.jpg' %}" alt="" class="img-fluid float-left">
+                                                <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1">5 Beautiful buildings you need..</h5>
                                                 <small>12 Jan, 2016</small>
                                             </div>
@@ -407,7 +409,7 @@
 
                                         <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="{% static 'upload/tech_blog_0101.jpg' %}" alt="" class="img-fluid float-left">
+                                                <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1">Let's make an introduction for..</h5>
                                                 <small>11 Jan, 2016</small>
                                             </div>
@@ -415,7 +417,7 @@
 
                                         <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 last-item justify-content-between">
-                                                <img src="{% static 'upload/tech_blog_0103.jpg' %}" alt="" class="img-fluid float-left">
+                                                <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1">Did you see the most beautiful..</h5>
                                                 <small>07 Jan, 2016</small>
                                             </div>
@@ -430,7 +432,7 @@
                                     <div class="list-group">
                                         <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="{% static 'upload/tech_blog_0102.jpg' %}" alt="" class="img-fluid float-left">
+                                                <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1">Banana-chip chocolate cake recipe..</h5>
                                                 <span class="rating">
                                                     <i class="fa fa-star"></i>
@@ -444,7 +446,7 @@
 
                                         <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="{% static 'upload/tech_blog_0103.jpg' %}" alt="" class="img-fluid float-left">
+                                                <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1">10 practical ways to choose organic..</h5>
                                                 <span class="rating">
                                                     <i class="fa fa-star"></i>
@@ -458,7 +460,7 @@
 
                                         <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 last-item justify-content-between">
-                                                <img src="{% static 'upload/tech_blog_0107.jpg' %}" alt="" class="img-fluid float-left">
+                                                <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1">We are making homemade ravioli..</h5>
                                                 <span class="rating">
                                                     <i class="fa fa-star"></i>

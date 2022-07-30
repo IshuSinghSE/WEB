@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block content %}
 
@@ -102,10 +103,11 @@
                                 <div class="blog-box row">
                                     <div class="col-md-4">
                                         <div class="post-media">
-                                            <a href="{% url 'article_detail' post.pk %}" title="">
+                                            <a href="{{ post.get_absolute_url }}" title="">
                                           {% if post.image %}
                                                 <img src="{{ post.image.url }}" alt="{{ post.title }}" width='600px' height='500px' class="img-fluid">
                                           {% else %}
+
                                                 <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid">
                                           {% endif %}
                                                 <div class="hovereffect"></div>
@@ -114,7 +116,7 @@
                                     </div><!-- end col -->                 
                                       
                                     <div class="blog-meta big-meta col-md-8">
-                                        <h4><a href="{% url 'article_detail' post.pk %}" title="">{{ post.title }}</a></h4>
+                                        <h4><a href="#" title="">{{ post.title }}</a></h4>
                                         {% if user.id == post.author.id %}
                                             <small>  
                                             <a href="{% url 'update_post' post.pk %}"> <i class="fa fa-edit">  edit  </i>
@@ -127,7 +129,7 @@
                                             {{ post.snippet }}
                                         </p>
                                         <small class="firstsmall"><a class="bg-orange" href="{% url 'category' post.category|slugify %}" title="">{{ post.category }}</a></small>
-                                        <small><a href="{% url 'single' %}" title=""><i class="fa fa-clock-o"></i>  {{ post.publish.date }}</a></small>
+                                        <small><a href="{% url 'single' %}" title=""><i class="fa fa-clock-o"></i>  {{ post.publish|naturaltime }}</a></small>
                                         <small><a href="#" title="">By {{ post.author.first_name }} {{ post.author.last_name }}</a></small>
                                        <!-- <small><a href="{% url 'single' %}" title="">
                                         <i class="fa fa-eye"></i> 1114</a></small> -->

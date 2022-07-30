@@ -198,7 +198,7 @@ h5 {
 }
 
 .instagram-button {
-    background-color: #8134af;
+    background-image: linear-gradient(to bottom left, #515bd4, #8134af, #dd2a7b, #f58529, #feda77 ) !important;  
 }
 
 .blog-meta .bg-orange {
@@ -330,7 +330,7 @@ a:focus {
 .ig-button.btn-primary:hover,
 .ig-button.btn-primary:focus,
 .ig-button.btn-primary {
-    background: #8134af !important;
+    background-image: linear-gradient(to bottom left, #515bd4, #8134af, #dd2a7b, #f58529, #feda77 ) !important;  
     border-color: #8134af !important;
 }
 

@@ -309,10 +309,12 @@ a {
 
 .post-media:hover .menucat {
     display: none;
+
 }
 
 .post-media img {
     width: 100%;
+    border-radius: 10px;
 }
 
 
@@ -1231,6 +1233,7 @@ hr.invis3 {
     background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.1) 50%);
     background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.1) 50%);
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000', GradientType=1);
+    border-radius: 10px;
 }
 
 .post-media:hover .hovereffect span::before,
@@ -1239,6 +1242,7 @@ hr.invis3 {
     zoom: 1;
     filter: alpha(opacity=100);
     opacity: 1;
+    border-radius: 10px;
 }
 
 .hovereffect span::before {

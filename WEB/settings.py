@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'theblog.apps.TheblogConfig',
     'account',
-    'ckeditor'
+    'ckeditor',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

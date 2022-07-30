@@ -4,6 +4,7 @@ from django.urls import reverse
 from ckeditor.fields import RichTextField
 from django.utils import timezone
 import datetime
+from django.template.defaultfilters import slugify
 # Create your models here.
 
 # POSTS #
@@ -25,6 +26,7 @@ class post(models.Model):
     updated  = models.DateField(auto_now=True)
     status   = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft') 
     likes    = models.ManyToManyField(User, related_name="blog_post_likes", blank=True)
+    slug     = models.SlugField(max_length=200, null=False, unique=True)
     
     class Meta:
         ordering = ('-publish',)
@@ -37,8 +39,13 @@ class post(models.Model):
 
     def get_absolute_url(self):
      #   return reverse('article_detail', args=(str(self.id)) )
-         return reverse('index')
+         return reverse('article_detail', kwargs={ "slug":  self.slug})
 
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)
    
 
 # CATEGORIES #    
@@ -77,6 +84,9 @@ class Comment(models.Model):
     name = models.CharField(max_length=255)
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('date_added',)
 
     def __str__(self):
         return '%s - %s' % (self.Post.title, self.name)
