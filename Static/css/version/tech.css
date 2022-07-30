@@ -327,6 +327,28 @@ a:focus {
     border-color: #00B6F1 !important;
 }
 
+.ig-button.btn-primary:hover,
+.ig-button.btn-primary:focus,
+.ig-button.btn-primary {
+    background: #8134af !important;
+    border-color: #8134af !important;
+}
+
+.wa-button.btn-primary:hover,
+.wa-button.btn-primary:focus,
+.wa-button.btn-primary {
+    background: #25d366 !important;
+    border-color: #25d366 !important;
+}
+
+.em-button.btn-primary:hover,
+.em-button.btn-primary:focus,
+.em-button.btn-primary {
+    background: #c4c6f1 !important;
+    border-color: #d4f6f1 !important;
+}
+
+
 @media (max-width: 1080px) {
     .first-section .blog-meta h4 {
         font-size: 18px;
