@@ -46,7 +46,11 @@ INSTALLED_APPS = [
     'account',
     'ckeditor',
     'django.contrib.humanize',
+    'hitcount',
+    'taggit',
 ]
+
+TAGGIT_CASE_INSENSITIVE = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

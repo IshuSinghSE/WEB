@@ -1,5 +1,5 @@
 from django import forms
-from .models import post, category
+from .models import post, category, Comment
 
 
 choices = category.objects.all().values_list('name','name')

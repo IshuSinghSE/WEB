@@ -1,36 +1,46 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView , CreateView, DetailView, UpdateView, DeleteView
-from .models import post, category
+from .models import post, category, Comment
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from .forms import PostForm, EditForm
 from django.core.paginator import Paginator
+from django.views.generic.list import ListView
+from hitcount.views import HitCountDetailView
+from taggit.models import Tag
 
 # Create your views here.
 
 
 class HomeView(ListView):
     model = post
-    template_name ='index.html'
+    template_name = "index.html"
     ordering = ['-publish']
     paginate_by = 10
 
     def get_context_data(self, *args, **kwargs):
         category_menu = category.objects.all()
         context = super(HomeView, self).get_context_data(*args, **kwargs)
+        context.update({'popular_posts': post.objects.order_by('-hit_count_generic__hits')[:5],})
         context["category_menu"] = category_menu
         return context
 
 
 
-class ArticleView(DetailView):
+class ArticleView(HitCountDetailView):
     model = post
     template_name ='article_detail.html'
+    
+    #ordering = ['-publish']
+    #paginate_by = 1
+    count_hit = True
 
     def get_context_data(self, *args, **kwargs):
         category_menu = category.objects.all()
+        #post_list = post.objects.all()
         context = super(ArticleView, self).get_context_data(*args, **kwargs)
+        context.update({'popular_posts': post.objects.order_by('-hit_count_generic__hits')[:5],})
         #stuff = get_object_or_404(post, id=self.kwargs[slug])
         #total_likes = stuff.total_likes()
 
@@ -39,10 +49,10 @@ class ArticleView(DetailView):
          #   liked = True
 
        # context["total_likes"] = total_likes
+        #context["post_list"] = post_list
         context["liked"] = liked
         context["category_menu"] = category_menu
         return context
-
 
 class AddPostView(CreateView):
     model = post

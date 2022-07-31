@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
+{% load hitcount_tags %}
 
 {% block content %}
 
@@ -131,8 +132,8 @@
                                         <small class="firstsmall"><a class="bg-orange" href="{% url 'category' post.category|slugify %}" title="">{{ post.category }}</a></small>
                                         <small><a href="{% url 'single' %}" title=""><i class="fa fa-clock-o"></i>  {{ post.publish|naturaltime }}</a></small>
                                         <small><a href="#" title="">By {{ post.author.first_name }} {{ post.author.last_name }}</a></small>
-                                       <!-- <small><a href="{% url 'single' %}" title="">
-                                        <i class="fa fa-eye"></i> 1114</a></small> -->
+                                        <small><a href="{% url 'single' %}" title="">
+                                        <i class="fa fa-eye"></i> {% get_hit_count for post %} </a></small> 
                                     </div><!-- end meta -->
                                 </div><!-- end blog-box -->
                                 <hr class="invis">
@@ -203,7 +204,7 @@
                                     {% endif %}
 
                                     <!-- Navigate pages -->
-                                    {% for num in page_obj.paginator.page_range %}
+                                    {% for num in page_obj.paginator %}
                                         {% if page_obj.number == num %}
                                             <li class="page-item"><a class="page-link active" href="?page={{ num }}">{{ num }}</a></li>
                                         {% elif num > page_obj.number|add:'-5' and num < page_obj.number|add:'5' %}
@@ -294,29 +295,17 @@
                             <h2 class="widget-title">Popular Posts</h2>
                             <div class="blog-list-widget">
                                 <div class="list-group">
-                                    <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div class="w-100 justify-content-between">
-                                            <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
-                                            <h5 class="mb-1">5 Beautiful buildings you need..</h5>
-                                            <small>12 Jan, 2016</small>
-                                        </div>
-                                    </a>
-
-                                    <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div class="w-100 justify-content-between">
-                                            <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
-                                            <h5 class="mb-1">Let's make an introduction for..</h5>
-                                            <small>11 Jan, 2016</small>
-                                        </div>
-                                    </a>
-
-                                    <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div class="w-100 last-item justify-content-between">
-                                            <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
-                                            <h5 class="mb-1">Did you see the most beautiful..</h5>
-                                            <small>07 Jan, 2016</small>
-                                        </div>
-                                    </a>
+                                   {% for p in popular_posts %}
+                                    
+                                        <a href="{{ p.get_absolute_url }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="w-100 justify-content-between">
+                                                <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
+                                                <h5 class="mb-1">{{ p.title }}</h5>
+                                                <small>{{ p.publish.date }}</small>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                        
                                 </div>
                             </div><!-- end blog-list -->
                         </div><!-- end widget -->

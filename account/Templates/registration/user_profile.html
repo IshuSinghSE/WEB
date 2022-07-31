@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load humanize %}
 {% block content %}
 
 
@@ -86,34 +86,57 @@
                                         </div><!-- end social -->
                                     </div><!-- end col -->
                                 </div><!-- end row -->
+
+
                             </div><!-- end author-box -->
 
-                            <hr class="invis1">
+
+                            <!------ MY POSTS  ---->
+
 
                             <div class="blog-list clearfix">
-
+                            {% for post in object_list %}
+                            
                                 <div class="blog-box row">
                                     <div class="col-md-4">
                                         <div class="post-media">
-                                            <a href="{% url 'single' %}" title="">
-                                                <img src="{% static 'upload/tech_blog_0101.jpg' %}" alt="" class="img-fluid">
+                                            <a href="{{ post.get_absolute_url }}" title="">
+                                          {% if post.image %}
+                                                <img src="{{ post.image.url }}" alt="{{ post.title }}" width='600px' height='500px' class="img-fluid">
+                                          {% else %}
+
+                                                <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid">
+                                          {% endif %}
                                                 <div class="hovereffect"></div>
                                             </a>
                                         </div><!-- end media -->
-                                    </div><!-- end col -->
-
+                                    </div><!-- end col -->                 
+                                      
                                     <div class="blog-meta big-meta col-md-8">
-                                        <h4><a href="{% url 'single' %}" title="">Top 10 phone applications and 2017 mobile design awards</a></h4>
-                                        <p>Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
-                                        <small class="firstsmall"><a class="bg-orange" href="{% url 'gadgets' %}" title="">Reviews</a></small>
-                                        <small><a href="{% url 'single' %}" title="">21 July, 2017</a></small>
-                                        <small><a href="{% url 'author' %}" title="">by Matilda</a></small>
-                                        <small><a href="{% url 'single' %}" title=""><i class="fa fa-eye"></i> 1114</a></small>
+                                        <h4><a href="#" title=""> rrtrt {{ post.title }}</a></h4>
+                                        {% if user.id == post.author.id %}
+                                            <small>  
+                                            <a href="{% url 'update_post' post.pk %}"> <i class="fa fa-edit">  edit  </i>
+                                            </a> |
+                                            <a href="{% url 'delete_post' post.pk %}"> <i class="fa fa-trash">  delete  </i>
+                                            </a>
+                                            </small>
+                                        {% endif %}
+                                        <p>
+                                            {{ post.snippet }}
+                                        </p>
+                                        <small class="firstsmall"><a class="bg-orange" href="{% url 'category' post.category|slugify %}" title="">{{ post.category }}</a></small>
+                                        <small><a href="{% url 'single' %}" title=""><i class="fa fa-clock-o"></i>  {{ post.publish|naturaltime }}</a></small>
+                                        <small><a href="#" title="">By {{ post.author.first_name }} {{ post.author.last_name }}</a></small>
+                                       <!-- <small><a href="{% url 'single' %}" title="">
+                                        <i class="fa fa-eye"></i> 1114</a></small> -->
                                     </div><!-- end meta -->
                                 </div><!-- end blog-box -->
+                                <hr class="invis">
 
+                                {% endfor %}
                                 
-
+                                <!------ MY POSTS END ---->
                                
 
                                 <hr class="invis">
@@ -122,14 +145,15 @@
                                     <div class="col-md-4">
                                         <div class="post-media">
                                             <a href="{% url 'single' %}" title="">
-                                                <img src="{% static 'upload/tech_blog_0110.jpg' %}" alt="" class="img-fluid">
+                                                <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid">
                                                 <div class="hovereffect"></div>
                                             </a>
                                         </div><!-- end media -->
                                     </div><!-- end col -->
 
                                     <div class="blog-meta big-meta col-md-8">
-                                        <h4><a href="{% url 'single' %}" title="">Google has developed a brand new algorithm. Forget all your knowledge!</a></h4>
+                                        <h4><a href="{% url 'single' %}" title="">{{ page_user.object_list }}
+                                        Google has developed a brand new algorithm. Forget all your knowledge!</a></h4>
                                         <p>Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
                                         <small class="firstsmall"><a class="bg-orange" href="{% url 'gadgets' %}" title="">Gadgets</a></small>
                                         <small><a href="{% url 'single' %}" title="">13 July, 2017</a></small>
@@ -273,7 +297,7 @@
                                     <div class="list-group">
                                         <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="{% static 'upload/tech_blog_0108.jpg' %}" alt="" class="img-fluid float-left">
+                                                <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1">5 Beautiful buildings you need..</h5>
                                                 <small>12 Jan, 2016</small>
                                             </div>
@@ -281,7 +305,7 @@
 
                                         <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="{% static 'upload/tech_blog_0101.jpg' %}" alt="" class="img-fluid float-left">
+                                                <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1">Let's make an introduction for..</h5>
                                                 <small>11 Jan, 2016</small>
                                             </div>
@@ -289,7 +313,7 @@
 
                                         <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 last-item justify-content-between">
-                                                <img src="{% static 'upload/tech_blog_0103.jpg' %}" alt="" class="img-fluid float-left">
+                                                <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1">Did you see the most beautiful..</h5>
                                                 <small>07 Jan, 2016</small>
                                             </div>
@@ -304,7 +328,7 @@
                                     <div class="list-group">
                                         <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="{% static 'upload/tech_blog_0102.jpg' %}" alt="" class="img-fluid float-left">
+                                                <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1">Banana-chip chocolate cake recipe..</h5>
                                                 <span class="rating">
                                                     <i class="fa fa-star"></i>
@@ -318,7 +342,7 @@
 
                                         <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="{% static 'upload/tech_blog_0103.jpg' %}" alt="" class="img-fluid float-left">
+                                                <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1">10 practical ways to choose organic..</h5>
                                                 <span class="rating">
                                                     <i class="fa fa-star"></i>
@@ -332,7 +356,7 @@
 
                                         <a href="{% url 'single' %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 last-item justify-content-between">
-                                                <img src="{% static 'upload/tech_blog_0107.jpg' %}" alt="" class="img-fluid float-left">
+                                                <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1">We are making homemade ravioli..</h5>
                                                 <span class="rating">
                                                     <i class="fa fa-star"></i>
