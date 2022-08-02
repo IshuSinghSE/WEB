@@ -10,6 +10,9 @@ from theblog.models import profile, post
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.core.mail import send_mail
+from django.conf import settings
+from django.http import JsonResponse
 
 def login_user(request):
 
@@ -20,7 +23,7 @@ def login_user(request):
 
 		if user is not None:
 				login(request, user)
-				messages.success(request, ("Welcome @" + username + " have Logged in Successfuly! "))
+				messages.success(request, ("Welcome " + username + " have Logged in Successfuly! "))
 				return redirect('index')
 		else:
 			messages.error(request, ("Something went wrong, Try Again! "))
@@ -34,6 +37,12 @@ def logout_user(request):
 	logout(request)
 	messages.success(request, "You have Logged Out Successfuly! ")
 	return redirect('index')
+
+
+class UserSignUp(generic.CreateView):
+	form_class = SignUpForm
+	template_name = 'registration/register.html'
+	success_url = reverse_lazy('login')
 
 
 # Create your views here.
@@ -55,7 +64,12 @@ class EditProfilePage(generic.UpdateView):
 	template_name = 'registration/edit_profile_page.html'
 	fields = ['bio', 'profile_pic', 'website_url', 'facebook_url', 'instagram_url', 'twitter_url', 'pinterest_url']
 	success_url = reverse_lazy('index')
-	#messages.success(request, ("You have Profile Updated Successfuly! "))
+	
+	def edit(self, request):
+
+		messages.success(request, "You have Logged Out Successfuly! ")
+		return redirect(reverse_lazy('index'))
+	
 
 
 class CreateProfilePage(generic.CreateView):
@@ -63,15 +77,14 @@ class CreateProfilePage(generic.CreateView):
 	template_name = 'registration/create_profile_page.html'
 	form_class = ProfilePageForm
 
-	def form_valid(self, form):
+	def form_valid(self, form, request):
 		form.instance.user = self.request.user
 		return super().form_valid(form)
 
+		messages.success(request, "You have Logged Out Successfuly! ")
+		return redirect('index')
 
-class UserSignUp(generic.CreateView):
-	form_class = SignUpForm
-	template_name = 'registration/register.html'
-	success_url = reverse_lazy('login')
+
 
 	
 class EditProfile(generic.UpdateView):
@@ -89,4 +102,4 @@ class PasswordChangeView(PasswordChangeView):
 
 def password_success(request):
 	messages.success(request, ("Password changed Successfuly! "))
-	return render(request, 'registration/password_success.html',{})
+	return render(request, 'index',{})

@@ -7,7 +7,7 @@ from theblog.models import profile
 class SignUpForm(UserCreationForm):
 	email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-control form-control-lg'}))
 	first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control form-control-lg'}))
-	last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control form-control-lg'}))
+	last_name = forms.CharField(max_length=100, help_text='Enter a valid email address', widget=forms.TextInput(attrs={'class': 'form-control form-control-lg'}))
 
 	class Meta:
 		model = User 

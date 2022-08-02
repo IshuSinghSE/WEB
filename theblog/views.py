@@ -10,6 +10,16 @@ from django.views.generic.list import ListView
 from hitcount.views import HitCountDetailView
 from taggit.models import Tag
 
+from django.contrib import messages
+from django.http import JsonResponse
+import re
+from .models import SubscribedUsers
+from django.core.mail import send_mail
+from django.conf import settings
+
+import datetime
+
+
 # Create your views here.
 
 
@@ -22,7 +32,9 @@ class HomeView(ListView):
     def get_context_data(self, *args, **kwargs):
         category_menu = category.objects.all()
         context = super(HomeView, self).get_context_data(*args, **kwargs)
-        context.update({'popular_posts': post.objects.order_by('-hit_count_generic__hits')[:5],})
+        context.update({'posts': post.objects.filter(approved =True).order_by('-publish',)})
+        context.update({'popular': post.objects.filter(approved =True).order_by('-publish','-hit_count_generic__hits')[0:4],})
+        context.update({'popular_posts': post.objects.filter(approved =True).order_by('-hit_count_generic__hits')[0:5],})
         context["category_menu"] = category_menu
         return context
 
@@ -59,6 +71,11 @@ class AddPostView(CreateView):
     template_name = 'add_post.html'
     form_class = PostForm
    
+    def get_context_data(self, *args, **kwargs):
+        category_menu = category.objects.all()
+        context = super(AddPostView, self).get_context_data(*args, **kwargs)
+        context["category_menu"] = category_menu
+        return context  
     
 class UpdatePostView(UpdateView):
     model = post
@@ -112,7 +129,38 @@ def LikeView(request, pk):
         liked = True
     return HttpResponseRedirect(reverse('article_detail', args=[str(pk)]))
 
+def index1(request):
+    if request.method == 'POST':
+        post_data = request.POST.copy()
+        email = post_data.get("email", None)
+        name = post_data.get("name", None)
+        subscribedUsers = SubscribedUsers()
+        subscribedUsers.email = email
+        subscribedUsers.name = name
+        subscribedUsers.save()
+        # send a confirmation mail
+        subject = 'NewsLetter Subscription'
+        message = 'Hello ' + name + ', Thanks for subscribing us. You will get notification of latest articles posted on our website. Please do not reply on this email. checkout our website --- https://ishusinghse.github.io/'
+        email_from = 'candyking1002263@gmail.com'#settings.EMAIL_HOST_USER
+        recipient_list = [email, ]
+        send_mail(subject, message, email_from, recipient_list)
+        # messages.success(request, "Newsletter Sent! ")
+        res = JsonResponse({'msg': 'Thanks. Subscribed Successfully!'})
+        return res
+        # return render(request, 'contact.html')
+    return render(request, 'index.html')
 
+def validate_email(request): 
+    email = request.POST.get("email", None)   
+    if email is None:
+        res = JsonResponse({'msg': 'Email is required.'})
+    elif SubscribedUsers.objects.get(email = email):
+        res = JsonResponse({'msg': 'Email Address already exists'})
+    elif not re.match(r"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", email):
+        res = JsonResponse({'msg': 'Invalid Email Address'})
+    else:
+        res = JsonResponse({'msg': ''})
+    return res
 
 
 def index(request):

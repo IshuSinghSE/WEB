@@ -428,7 +428,7 @@
                             {% if category_menu %}
 
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="{% url 'gadgets' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Category</a>
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Category</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                                     {% for item in category_menu %}
@@ -445,8 +445,6 @@
 
                             {% endif %}   
                                 
-                              
-                                  
 
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'gadgets' %}">Gadgets</a>
@@ -462,15 +460,15 @@
                             </li>
                         </ul>
                         
-                        <ul class="navbar-nav mr-2">
+                        <ul class="navbar-nav mr-3">
 
                         {% if user.is_authenticated %}
 
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="{% url 'gadgets' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                                 {{ user.username }} </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">  
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="left: -5rem;">  
 
                                
                                 {% if user.profile.id %}
@@ -485,7 +483,7 @@
                                 <a href="{% url 'add_post' %}" class="dropdown-item"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Post</a>
                                 <a href="" class="dropdown-item"><i class="fa fa-trash" aria-hidden="true"></i>delete post</a>
                                     <div class="dropdown-divider"></div>                            
-                                <a href="{% url 'logout' %}" class="dropdown-item"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout </a>
+                                <a href="{% url 'logout' %}" class="dropdown-item"><i class="fa fa-power-off" aria-hidden="true"></i> Logout </a>
 
                             </div>    
                             </li> 
@@ -509,6 +507,7 @@
             </div><!-- end container-fluid -->
         </header><!-- end market-header -->
         
+
 
     </div>
 
@@ -542,11 +541,14 @@
                         <hr class="invis">
 
                         <div class="newsletter-widget text-left">
-                            <form class="form-inline" >
-                               
+                            <form class="form-inline" enctype="multipart/form-data" method="POST" action="">
+                                {% csrf_token %}
                                 <p>Subscribe to our Newsletter</p>
-                                <input type="text" class="form-control" placeholder="Enter your email address">
-                                <button type="submit" class="btn btn-primary">SUBMIT</button>
+                                <input type="email" class="form-control" placeholder="Enter your email address" id="userEmail"  required>
+                                <input type="text" class="form-control" id="userName" placeholder="Enter your name" required >
+
+                               
+                                <button  type="submit" class="btn btn-primary" id="submit">SUBMIT</button>
                             </form>
                         </div><!-- end newsletter -->
 
@@ -554,7 +556,7 @@
                     </div><!-- end footer-text -->
                 </div><!-- end widget -->
             </div><!-- end col -->
-
+<!---
             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                 <div class="widget">
                     <h2 class="widget-title">Popular Categories</h2>
@@ -566,9 +568,9 @@
                             <li><a href="#">Make Money <span>(22)</span></a></li>
                             <li><a href="#">Blogging <span>(66)</span></a></li>
                         </ul>
-                    </div><!-- end link-widget -->
-                </div><!-- end widget -->
-            </div><!-- end col -->
+                    </div end link-widget 
+                </div> end widget 
+            </div> end col   -->
 
             <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
                 <div class="widget">
@@ -576,10 +578,10 @@
                     <div class="link-widget">
                         <ul>
                             <li><a href="#">About us</a></li>
-                            <li><a href="#">Advertising</a></li>
+                           <!-- <li><a href="#">Advertising</a></li>
                             <li><a href="#">Write for us</a></li>
                             <li><a href="#">Trademark</a></li>
-                            <li><a href="#">License & Help</a></li>
+                            <li><a href="#">License & Help</a></li> --->
                         </ul>
                     </div><!-- end link-widget -->
                 </div><!-- end widget -->
@@ -606,8 +608,9 @@
 <script src="{% static 'js/tether.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/custom.js' %}"></script>
-<!-- javascript add -->
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{% static 'js/app.js' %}"></script>
 
 </body>
 </html>

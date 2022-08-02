@@ -1,6 +1,6 @@
 from django.urls import path, include
 from . import views
-from .views import  HomeView, ArticleView, AddPostView, UpdatePostView, DeletePostView, CategoryView, LikeView, CategoryList
+from .views import  HomeView, ArticleView, AddPostView, UpdatePostView, DeletePostView, CategoryView, LikeView, CategoryList, index1, validate_email
 
 #app_name = 'theblog'
 
@@ -12,6 +12,8 @@ urlpatterns = [
     path('add_post/',AddPostView.as_view(), name='add_post'),
     path('article/<slug:slug>',ArticleView.as_view(), name='article_detail'),
     path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace ='hitcount')),
+    path('newsletter/', views.index1, name='index1'),
+    path('validate/', views.validate_email, name='validate_email'),
    
 
 

@@ -9,13 +9,14 @@ from django.template.defaultfilters import slugify
 from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 from taggit.managers import TaggableManager
-
+from  embed_video.fields  import  EmbedVideoField
 
 # Create your models here.
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super(PublishedManager,self).get_queryset().filter(status='published')
+
 
 
 # POSTS #
@@ -25,6 +26,10 @@ class post(models.Model):
         ('draft', 'Draft'),
         ('published', 'Published'),
         )
+    POST_CHOICES = (
+        ('article', 'Article'),
+        ('video', 'Video'),
+        ) 
 
     title    = models.CharField(max_length=200,default='this is my blog', blank=True, null=True)
     author   = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -36,10 +41,14 @@ class post(models.Model):
     created  = models.DateField(auto_now_add=True)
     updated  = models.DateField(auto_now=True)
     status   = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft') 
+    #video = EmbedVideoField()
+
+    content_type   = models.CharField(max_length=10, choices=POST_CHOICES, default='article') 
     likes    = models.ManyToManyField(User, related_name="blog_post_likes", blank=True)
     slug     = models.SlugField(max_length=200, null=False, unique=True)
     hit_count_generic =  GenericRelation(HitCount, object_id_field='object_pk', related_query_name='hit_count_generic_relation')
     tags = TaggableManager() 
+    approved = models.BooleanField(default=False)
 
 
     class Meta:
@@ -49,7 +58,7 @@ class post(models.Model):
         return self.likes.count()
 
     def __str__(self):
-        return self.title + ' | ' + str(self.author) + ' | ' + str(self.publish)
+        return self.title + ' | ' + str(self.author) + ' | ' + str(self.publish) + ' | ' + str(self.approved)
 
     objects = models.Manager() # The default manager.
     published = PublishedManager() # Our custom manager.
@@ -94,7 +103,13 @@ class profile(models.Model):
 
      def get_absolute_url(self):
         return reverse('index')
+        
+class SubscribedUsers(models.Model):
+    email = models.CharField(unique=True, max_length=50)
+    name = models.CharField(max_length=50)
 
+    def __str__(self):
+       return '%s - %s' % (self.name, self.email)
 
 class Comment(models.Model):
     Post = models.ForeignKey(post, related_name="comments", on_delete=models.CASCADE)
@@ -116,4 +131,10 @@ class Comment(models.Model):
     def get_comments(self):
         return Comment.objects.filter(parent=self).filter(active=True)
 
-   
+
+'''
+class  Video(models.Model):
+    Title = models.CharField(max_length=200)
+    Body = models.TextField()
+    video = EmbedVideoField()
+'''

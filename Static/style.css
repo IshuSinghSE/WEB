@@ -1167,7 +1167,7 @@ hr.invis3 {
 }
 
 .shadoweffect {
-    position: absolute;
+   /* position: absolute; */
     top: 0;
     opacity: 0;
     left: 0;
@@ -1500,12 +1500,13 @@ hr.invis3 {
 
 .newsletter-widget .form-inline {
     display: block;
+
 }
 
 .newsletter-widget .form-inline .form-control {
     background-color: rgba(255, 255, 255, 0.9);
     border: 1px solid #dbdde0;
-    border-radius: 0;
+    border-radius: 10px;
     box-shadow: none;
     display: inline-block;
     font-size: 14px;
@@ -1514,7 +1515,7 @@ hr.invis3 {
     line-height: 1;
     letter-spacing: 0.3px;
     vertical-align: middle;
-    width: 400px;
+    width: 200px;
 }
 
 .card-block {
@@ -1609,7 +1610,7 @@ hr.invis3 {
 
 .newsletter-widget .btn {
     height: 54px;
-    border-radius: 0;
+    border-radius: 10px;
     border: 0;
 }
 

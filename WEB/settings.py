@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'hitcount',
     'taggit',
+    'embed_video',
 ]
 
 TAGGIT_CASE_INSENSITIVE = True
@@ -148,9 +149,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
+"""
 # registration
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp-relay.sendinblue.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ishu.111636@gmail.com'
+EMAIL_HOST_PASSWORD = 'wqFJPh746dXzBCMn'
+EMAIL_USE_SSL = False
+"""
 
 EMAIL_BACKEND = 'django_mailjet.backends.MailjetBackend'
 EMAIL_HOST = 'in-v3.mailjet.com'
@@ -160,6 +168,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_TIMEOUT = 30
-DEFAULT_FROM_EMAIL = 'ishu.111636@yahoo.com'
+DEFAULT_FROM_EMAIL = 'candyking1002263@gmail.com'
 
 
