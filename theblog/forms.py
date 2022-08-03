@@ -18,7 +18,7 @@ class PostForm(forms.ModelForm):
 		'author': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'id':'author', 'type':'hidden'}),
 		'category': forms.Select(choices=choice_list,attrs={'class': 'form-control form-control-lg'}),
 		'body': forms.Textarea(attrs={'class': 'form-control form-control-lg'}),
-		'image': forms.FileInput(attrs={'class': 'form-control form-control-lg'}),
+		'image': forms.FileInput(attrs={'class': 'form-control form-control-lg','accept':'image/*' }),
 		'snippet': forms.Textarea(attrs={'class': 'form-control form-control-lg'}),
 		'status': forms.Select(attrs={'class': 'form-control form-control-lg'}),
 
@@ -33,7 +33,7 @@ class EditForm(forms.ModelForm):
 		'author': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
 		'category': forms.Select(choices=choice_list, attrs={'class': 'form-control form-control-lg'}),
 		'body': forms.Textarea(attrs={'class': 'form-control form-control-lg'}),
-		'image': forms.FileInput(attrs={'class': 'form-control form-control-lg'}),
+		'image': forms.FileInput(attrs={'class': 'form-control form-control-lg', 'accept':'image/*' }),
 		'snippet': forms.Textarea(attrs={'class': 'form-control form-control-lg'}),
 		'status': forms.Select(attrs={'class': 'form-control form-control-lg'}),
 
