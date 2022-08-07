@@ -6,6 +6,7 @@ from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from .forms import SignUpForm, UserEditForm, PasswordEditForm, ProfilePageForm
 from theblog.models import profile, post 
+from django.core.paginator import Paginator
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -49,10 +50,12 @@ class UserSignUp(generic.CreateView):
 class ShowProfile(DetailView):
 	model = profile 
 	template_name = 'registration/user_profile.html'
+	paginate_by = 5
 
 	def get_context_data(self, *args, **kwargs):
 	    users = profile.objects.all()
 	    context = super(ShowProfile, self).get_context_data(*args, **kwargs)
+	    context.update({'posts': post.objects.filter(approved =True).order_by('-publish',)})
 	    page_user = get_object_or_404(profile, id=self.kwargs['pk'])
 	    context["page_user"] = page_user
 	    return context

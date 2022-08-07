@@ -9,14 +9,17 @@
 
         <div class="page-title lb single-wrapper">
             <div class="container">
-                <div class="row float-center col-lg-12">
-                                       
+                <div class="row">
+                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <h2><i class="fa fa-user-circle bg-orange"></i>Profile <small class="hidden-xs-down hidden-sm-down"></small></h2>
+                </div><!-- end col -->
+                <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Author</a></li>
+                            <li class="breadcrumb-item"><a href="#">Profile</a></li>
                             <li class="breadcrumb-item active">{{ page_user.user.first_name|title }} {{ page_user.user.last_name|title }}</li>
                         </ol>
-                                      
+                    </div>                  
                 </div><!-- end row -->
             </div><!-- end container -->
         </div><!-- end page-title -->
@@ -31,10 +34,10 @@
                                 {% if user.is_authenticated %}
                                     {% if user.profile.id == page_user.id %}
 
-                                    <div class="float-right top col-sm-.5 col-md-.2">
-                                         <a href="{% url 'edit_profile_page' user.profile.id %}" data-toggle="tooltip" data-placement="bottom" title="Profile"><i class="fa fa-gear"></i></a>
-                                    </div>
-                                   
+                                        <div class="float-right top col-sm-.5 col-md-.2">
+                                             <a href="{% url 'edit_profile_page' user.profile.id %}" data-toggle="tooltip" data-placement="bottom" title="Profile"><i class="fa fa-gear"></i></a>
+                                        </div>
+                                       
 
                                     {% endif %}
                                 {% endif %}
@@ -94,9 +97,18 @@
                             <!------ MY POSTS  ---->
 
 
-                            <div class="blog-list clearfix">
-                            {% for post in object_list %}
-                            
+                            <div class="blog-list clearfix"> 
+                                <br>
+                                <br>
+                                <div class="blog-top clearfix">
+                                    <h4 class="pull-left"><a href="#">Published Posts <i class="fa fa-book"></i></a></h4>
+                                    <h4 class="pull-right"><a href="#">Draft Posts <i class="fa fa-save"></i></a></h4>
+                                </div><!-- end blog-top -->
+                               
+
+                                
+                            {% for post in posts %}
+                               {% if profile.id == post.author.profile.id %} 
                                 <div class="blog-box row">
                                     <div class="col-md-4">
                                         <div class="post-media">
@@ -113,7 +125,7 @@
                                     </div><!-- end col -->                 
                                       
                                     <div class="blog-meta big-meta col-md-8">
-                                        <h4><a href="#" title=""> rrtrt {{ post.title }}</a></h4>
+                                        <h4><a href="#" title="">{{ post.title }}</a></h4>
                                         {% if user.id == post.author.id %}
                                             <small>  
                                             <a href="{% url 'update_post' post.pk %}"> <i class="fa fa-edit">  edit  </i>
@@ -133,7 +145,7 @@
                                     </div><!-- end meta -->
                                 </div><!-- end blog-box -->
                                 <hr class="invis">
-
+                                {% endif %}
                                 {% endfor %}
                                 
                                 <!------ MY POSTS END ---->

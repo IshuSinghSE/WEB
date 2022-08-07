@@ -15,11 +15,10 @@
                             <div class="blog-title-area text-center">
                                 <ol class="breadcrumb hidden-xs-down">
                                     <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Blog</a></li>
                                     <li class="breadcrumb-item active">{{ post.title }}</li>
                                 </ol>
 
-                                <span class="color-orange"><a href="{% url 'gadgets' %}" title="">{{ post.category }}</a></span>
+                                <span class="color-orange"><a href="{% url 'category' post.category|slugify %}" title="">{{ post.category }}</a></span>
                                  
 
 
@@ -27,8 +26,14 @@
 
                                 <div class="blog-meta big-meta">
                                     <small><a href="{% url 'single' %}" title="">{{ post.publish|naturaltime }}</a></small>
+
+                                {% if post.author.profile %}
+                                    <small><a href="{% url 'show_profile' post.author.profile.id %}" title="">by {{ post.author.first_name }}  {{ post.author.last_name }}</a></small>
+                                {% else %}
                                     <small><a href="#" title="">by {{ post.author.first_name }}  {{ post.author.last_name }}</a></small>
-                                     <small><a href="{% url 'single' %}" title="">
+                                {% endif %}
+
+                                     <small><a href="#" title="">
                                         <i class="fa fa-eye"></i> {% get_hit_count for post %} </a></small>
                                        
                                
@@ -63,7 +68,7 @@
 
                             <div class="blog-content">  
                                 <div class="pp">
-                                   {{ post.body|safe }}
+                                  <p>{{ post.body|safe }}</p>
                                 </div><!-- end pp -->
                                 <hr class="invis">
                                

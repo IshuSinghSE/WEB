@@ -18,7 +18,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 import datetime
-
+from datetime import timedelta
 
 # Create your views here.
 
@@ -26,14 +26,17 @@ import datetime
 class HomeView(ListView):
     model = post
     template_name = "index.html"
+    
+    paginate_by = 3
     ordering = ['-publish']
-    paginate_by = 10
+
 
     def get_context_data(self, *args, **kwargs):
+        today = datetime.date.today() - timedelta(days=7)
         category_menu = category.objects.all()
         context = super(HomeView, self).get_context_data(*args, **kwargs)
         context.update({'posts': post.objects.filter(approved =True).order_by('-publish',)})
-        context.update({'popular': post.objects.filter(approved =True).order_by('-publish','-hit_count_generic__hits')[0:4],})
+        context.update({'feed': post.objects.filter(approved =True, publish__gt = today).order_by('-hit_count_generic__hits')[0:4],})
         context.update({'popular_posts': post.objects.filter(approved =True).order_by('-hit_count_generic__hits')[0:5],})
         context["category_menu"] = category_menu
         return context
@@ -88,7 +91,6 @@ class UpdatePostView(UpdateView):
         context = super(UpdatePostView, self).get_context_data(*args, **kwargs)
         context["category_menu"] = category_menu
         return context
-
 
 class DeletePostView(DeleteView):
     model = post

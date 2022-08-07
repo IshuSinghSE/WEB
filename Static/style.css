@@ -26,6 +26,13 @@ body {
     font-size: 15px;
     line-height: 26px;
     background-color: #ffffff;
+    -webkit-user-select:  none;
+    user-select: :none;
+}
+
+::selection {
+    color: black ;
+    background-color: aliceblue ;
 }
 
 h1,
@@ -106,12 +113,15 @@ a {
 body,
 p {
     color: #5e5e5e;
+ 
 }
 
 p {
     margin-bottom: 26px;
     font-size: 15px;
     line-height: 26px;
+    -webkit-user-select:  text;
+    user-select: :text;
 }
 
 a {
@@ -341,6 +351,7 @@ div.tab button {
     outline: none;
     text-align: right;
     cursor: pointer;
+    user-select: none;
     -webkit-transition: all .3s ease-in-out;
     -moz-transition: all .3s ease-in-out;
     -ms-transition: all .3s ease-in-out;
@@ -352,6 +363,7 @@ div.tab button {
     border-bottom: 1px solid transparent;
     line-height: 1;
     text-transform: capitalize;
+
 }
 
 
@@ -1052,6 +1064,8 @@ div.tab button:hover {
 .pp {
     padding-left: 5%;
     padding-right: 5%;
+    -webkit-user-select: text;
+    user-select: text;
 }
 
 .pp .float-left {

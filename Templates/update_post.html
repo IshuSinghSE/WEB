@@ -10,7 +10,7 @@ Edit post
 {% if user.is_authenticated %}
 <div class="form-control">
     <h1 class="display-5 text-center font-weight-light"> EDIT POST</h1>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
     {% csrf_token %} 
     {{ form.as_p }}
     {{ form.media }}

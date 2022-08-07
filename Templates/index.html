@@ -31,7 +31,7 @@
         {% endif %}
                 
 
-                {% for post in popular %}
+                {% for post in feed %}
                
                 <div class="second-slot">   
                     <div class="masonry-box post-media">
@@ -54,7 +54,7 @@
                                     {% if post.author.profile %}
                                       <small><a href="{% url 'show_profile' post.author.profile.id %}" title="">By {{ post.author.first_name }} {{ post.author.last_name }}</a></small>
                                     {% else %}
-                                       <small><a href="{% url 'show_profile' post.author.profile.id %}" title="">By {{ post.author.first_name }} {{ post.author.last_name }}</a></small>
+                                       <small><a href="#" title="">By {{ post.author.first_name }} {{ post.author.last_name }}</a></small>
                                     {% endif %}
                                 </div><!-- end meta -->
                             </div><!-- end shadow-desc -->
@@ -72,7 +72,7 @@
                 <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                     <div class="page-wrapper">
                         <div class="blog-top clearfix">
-                            <h4 class="pull-left">Recent News !<a href="#"><i class="fa fa-rss"></i></a>
+                            <h4 class="pull-left">Latest News <a href="#"><i class="fa fa-rss"></i></a>
                                 
                             </h4>
                         </div><!-- end blog-top -->
@@ -80,7 +80,7 @@
                         <div class="blog-list clearfix">
                           
                                                        
-                            <!--         ...RECENT POSTS...                       -->
+                            <!--         ...LATEST POSTS...                       -->
                             
                             {% for post in posts %}
                             
@@ -100,7 +100,7 @@
                                     </div><!-- end col -->                 
                                       
                                     <div class="blog-meta big-meta col-md-8">
-                                        <h4><a href="#" title="">{{ post.title }}</a></h4>
+                                        <h4><a href="{{ post.get_absolute_url }}" title="">{{ post.title }}</a></h4>
                                         {% if user.id == post.author.id %}
                                             <small>  
                                             <a href="{% url 'update_post' post.pk %}"> <i class="fa fa-edit">  edit  </i>
@@ -117,7 +117,7 @@
                                         {% if post.author.profile %}
                                           <small><a href="{% url 'show_profile' post.author.profile.id %}" title="">By {{ post.author.first_name }} {{ post.author.last_name }}</a></small>
                                         {% else %}
-                                           <small><a href="{% url 'show_profile' post.author.profile.id %}" title="">By {{ post.author.first_name }} {{ post.author.last_name }}</a></small>
+                                           <small><a href="#" title="">By {{ post.author.first_name }} {{ post.author.last_name }}</a></small>
                                         {% endif %}
                                         <small><a href="#" title="">
                                         <i class="fa fa-eye"></i> {% get_hit_count for post %} </a></small> 
@@ -127,7 +127,7 @@
 
                                 {% endfor %}
 
-                                    <!--    ...RECENT POSTS END...    -->
+                                    <!--    ...LATEST POSTS END...    -->
 
 
                             <hr class="invis">
@@ -136,7 +136,7 @@
                                 <div class="col-lg-10 offset-lg-1">
                                     <div class="banner-spot clearfix">
                                         <div class="banner-img">
- <!----- BANNER ---->                                              <img src="{% static 'upload/banner_02.jpg' %}" alt=" " class="img-fluid">
+ <!----- BANNER ---->                    <img src="{% static 'upload/banner_02.jpg' %}" alt=" " class="img-fluid">
                                         </div><!-- end banner-img -->
                                     </div><!-- end banner -->
                                 </div><!-- end col -->
@@ -173,7 +173,7 @@
                                     {% for num in page_obj.paginator %}
                                         {% if page_obj.number == num %}
                                             <li class="page-item"><a class="page-link active" href="?page={{ num }}">{{ num }}</a></li>
-                                        {% elif num > page_obj.number|add:'-5' and num < page_obj.number|add:'5' %}
+                                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
                                             <li class="page-item"><a class="page-link active"  href="?page={{ num }}">{{ num }}</a></li>
                                         {% endif %}
                                     {% endfor %}
