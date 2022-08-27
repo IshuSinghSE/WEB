@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import UserSignUp, PasswordChangeView, login_user, logout_user, ResetPasswordView, ActivateAccount#, PasswordResetConfirmView, PasswordResetCompleteView
+from .views import UserSignUp, PasswordEditView, login_user, logout_user, ResetPasswordView, ActivateAccount #, PasswordResetConfirmView, PasswordResetCompleteView
 from .views import ShowProfile, EditProfilePage, CreateProfilePage, EditProfile, DraftProfile
 
 from django.contrib.auth import views as auth_views
@@ -13,7 +13,7 @@ urlpatterns = [
     path('login_user/', views.login_user, name="login"),
     path('logout_user/', views.logout_user, name="logout"),
 
-    path('password/',PasswordChangeView.as_view()),
+    path('password/',PasswordEditView.as_view(), name='password-change'),
     path('password_success/',views.password_success,name='password_success'),
     path('password_reset/',ResetPasswordView.as_view(),name='password_reset'),
     path('password-reset-confirm/<uidb64>/<token>/',

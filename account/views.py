@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.views.generic import DetailView, CreateView, View
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
-from django.contrib.auth.views import PasswordChangeView
+
 from django.urls import reverse_lazy
 from .forms import SignUpForm, UserEditForm, PasswordEditForm, ProfilePageForm
 from theblog.models import profile, post 
@@ -97,10 +97,10 @@ class ActivateAccount(View):
             user.save()
             login(request, user)
             messages.success(request, ('Your account have been confirmed.'))
-            return redirect('home')
+            return redirect('index')
         else:
             messages.warning(request, ('The confirmation link was invalid, possibly because it has already been used.'))
-            return redirect('home')
+            return redirect('index')
 
             
 
@@ -190,12 +190,13 @@ class EditProfile(generic.UpdateView):
 	def get_object(self):
 		return self.request.user
 
-class PasswordChangeView(SuccessMessageMixin, PasswordChangeView):
+class PasswordEditView(PasswordChangeView):
 	form_class = PasswordEditForm
 	template_name='registration/change_password.html'
 	success_message = "Successfully Changed Your Password"
+	#success_url = reverse_lazy('index')
 	success_url = reverse_lazy('password_success')
 
 def password_success(request):
 	messages.success(request, ("Password changed Successfuly! "))
-	return render(request, 'index',{})
+	return render(request, 'registration/password_success.html')
