@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 from ckeditor.fields import RichTextField
 from django.utils import timezone
+from django.utils.functional import cached_property
 import datetime
 from django.template.defaultfilters import slugify
 #from django.utils.encoding import python_2_unicode_compatible
@@ -10,6 +12,9 @@ from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 from taggit.managers import TaggableManager
 from  embed_video.fields  import  EmbedVideoField
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -56,6 +61,15 @@ class post(models.Model):
 
     def total_likes(self):
         return self.likes.count()
+    
+        
+
+    @cached_property
+    def is_published(self):
+        return self.publish <= timezone.now()
+
+    def publisheds(self):
+        self.publish = timezone.now()
 
     def __str__(self):
         return self.title + ' | ' + str(self.author) + ' | ' + str(self.publish) + ' | ' + str(self.approved)
@@ -65,12 +79,16 @@ class post(models.Model):
 
     def get_absolute_url(self):
      #   return reverse('article_detail', args=str([self.slug]) )
-         return reverse('article_detail', kwargs={ "slug":  self.slug})
-
+         return reverse('article_detail', kwargs={ "slug":  self.slug })
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+        # if self.status == 'published':
+            # self.created = timezone.now()
+        # else:
+            # self.publish = None
+        # super(post, self).save(*args, **kwargs)
         return super().save(*args, **kwargs)
 
    
@@ -104,6 +122,12 @@ class profile(models.Model):
      def get_absolute_url(self):
         return reverse('index')
         
+@receiver(post_save, sender=User)
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        profile.objects.create(user=instance)
+    instance.profile.save()        
+
 class SubscribedUsers(models.Model):
     email = models.CharField(unique=True, max_length=50)
     name = models.CharField(max_length=50)
@@ -112,10 +136,11 @@ class SubscribedUsers(models.Model):
        return '%s - %s' % (self.name, self.email)
 
 class Comment(models.Model):
-    Post = models.ForeignKey(post, related_name="comments", on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    email = models.EmailField()
-    parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE)
+    CommentPost = models.ForeignKey(post, related_name="comments", on_delete=models.CASCADE)
+    #name = models.CharField(max_length=255)
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    email = models.EmailField(get_user_model())
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
     body = models.TextField()
 
     date_added = models.DateTimeField(auto_now_add=True)
@@ -126,11 +151,17 @@ class Comment(models.Model):
         ordering = ('date_added',)
 
     def __str__(self):
-        return '%s - %s' % (self.Post.title, self.name)
+        return str(self.author) + ' | ' + str(self.body) 
 
+    @property 
     def get_comments(self):
-        return Comment.objects.filter(parent=self).filter(active=True)
+        return Comment.objects.filter(parent=self).reverse()# .filter(active=True)
 
+    @property
+    def is_parent(self):
+        if self.parent is None:
+            return True
+        return False
 
 '''
 class  Video(models.Model):

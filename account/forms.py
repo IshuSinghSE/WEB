@@ -20,6 +20,10 @@ class SignUpForm(UserCreationForm):
 		self.fields['password1'].widget.attrs['class'] = 'form-control form-control-lg'
 		self.fields['password2'].widget.attrs['class'] = 'form-control form-control-lg'
 
+	#def clean(self):
+		#cleaned_data=super.clean()
+	#	if user.objects.filter(username=cleaned_data["username"].exists()):
+	#		raise ValidationError("The username is taken, please try another one!")
 
 class UserEditForm(forms.ModelForm):
 	username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control form-control-lg'}))
@@ -57,11 +61,11 @@ class PasswordEditForm(PasswordChangeForm):
 class ProfilePageForm(forms.ModelForm):
 	class Meta:
 		model = profile
-		fields = ('bio', 'profile_pic', 'facebook_url', 'instagram_url', 'twitter_url', 'pinterest_url', 'website_url')
+		fields = ('profile_pic', 'bio', 'facebook_url', 'instagram_url', 'twitter_url', 'pinterest_url', 'website_url')
 		
 		widgets = {
 			'bio': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
-			'profile_pic': forms.FileInput(attrs={'class': 'form-control form-control-lg', 'accept':'image/*' }),
+			'profile_pic': forms.FileInput(attrs={'class': '', 'accept':'image/*' , 'class':'file-upload' }),
 			'facebook_url': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
 			'instagram_url': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
 			'twitter_url': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),

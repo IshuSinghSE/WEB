@@ -1,5 +1,7 @@
 from django import forms
 from .models import post, category, Comment
+from django.utils.translation import gettext_lazy as _
+from django.db.migrations.state import get_related_models_tuples
 
 
 choices = category.objects.all().values_list('name','name')
@@ -39,3 +41,32 @@ class EditForm(forms.ModelForm):
 
 
 		}
+
+
+class CommentForm(forms.ModelForm):
+	class Meta:
+		model = Comment
+
+		fields = ['body', 'parent']
+
+		labels = {
+			'body' : _(''),
+		}
+
+		widgets = {
+			'body': forms.Textarea(attrs={'class':'form-control', 'placeholder':"Your comment", 'value':"comment_form"}),
+			#'email': forms.EmailInput(),
+		}
+
+
+class ContactForm(forms.Form):
+	name = forms.CharField(widget = forms.TextInput(attrs={'class':'form-control', 'placeholder':"Your Name"}),max_length=255)
+	email = forms.EmailField(widget = forms.TextInput(attrs={'class':'form-control', 'placeholder':"Your Email"}),max_length=255)
+	subject = forms.CharField(widget = forms.TextInput(attrs={'class':'form-control', 'placeholder':"Subject"}),max_length=255)
+	message = forms.CharField(widget= forms.Textarea(attrs={'class':'form-control', 'placeholder':"Your message"}), max_length=255)
+
+	class Meta:
+		fields = ['name', 'email', 'subject', 'message' ]
+
+		labels = {
+			'name' : _(''),}

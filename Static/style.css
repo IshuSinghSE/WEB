@@ -27,7 +27,8 @@ body {
     line-height: 26px;
     background-color: #ffffff;
     -webkit-user-select:  none;
-    user-select: :none;
+    user-select: none;
+    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif
 }
 
 ::selection {
@@ -121,7 +122,7 @@ p {
     font-size: 15px;
     line-height: 26px;
     -webkit-user-select:  text;
-    user-select: :text;
+    user-select: text;
 }
 
 a {
@@ -216,7 +217,7 @@ a {
 .header .dropdown-item:hover,
 .header .dropdown-item:focus {
     color: #121212 !important;
-    background-color: #edeff2;
+    background-color: #edeff2b3;
 }
 
 .header .dropdown ul li:last-child {
@@ -287,12 +288,13 @@ a {
 
 .dropdown-menu .dropdown-menu {
     margin-top: -1px !important
+    
 }
 
 .mega-menu-content {
     position: relative;
     padding: 0;
-    background-color: #ffffff;
+    background-color: #ffffffbf;
 }
 
 .tab-details {
@@ -371,10 +373,11 @@ div.tab button {
 
 div.tab button:hover,
 div.tab button.active {
-    background-color: #ffffff;
+    background-color: #ffffffc6;
     border-right: 0 solid #e1e3e6;
     border-bottom: 1px solid #e1e3e6;
     border-left: 0 solid #e1e3e6;
+    border-radius: 5%;
 }
 
 div.tab button:hover {
@@ -812,7 +815,7 @@ div.tab button:hover {
 
 .page-title {
     padding: 3rem 0;
-    background-color: #edeff2;
+    background-color: #edeff2a9;
 }
 
 .page-title small {
@@ -1119,7 +1122,7 @@ div.tab button:hover {
 }
 
 .blog-meta h4 {
-    padding: 1rem 0 0.5rem;
+    padding: 0;
     margin: 0;
     font-size: 21px;
 }
@@ -1147,7 +1150,7 @@ div.tab button:hover {
 }
 
 .blog-meta small:after {
-    content: "/";
+    content: "";
     padding-left: 1rem;
 }
 
@@ -1293,8 +1296,9 @@ hr.invis3 {
 .blog-list .blog-meta.big-meta h4 {
     margin-left: -20%;
     margin-top: 1rem;
-    background-color: #ffffff;
-    padding: 1rem 1.5rem 1rem;
+    background-color: #ffffff90;
+    padding: .25rem 1.5rem .1rem;
+    border-radius: 5%;
 }
 
 .blog-custom-build .blog-meta {
@@ -1664,7 +1668,7 @@ hr.invis3 {
 .loader {
     display: block;
     margin: 20px auto 0;
-    vertical-align: middle;
+  /*  vertical-align: middle; */
 }
 
 #preloader {
@@ -1695,4 +1699,43 @@ hr.invis3 {
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
     border-radius: 50%
+}
+
+
+/*------------------------------------------------------------------------------CUSTOM-----------------------------------------------------------------------------*/
+.file-upload{
+    background-color: #00B6F1;
+    display: none;
+}
+
+.latest{
+    color:#555555 !important;
+    padding:20px;
+    font-size: 20px;
+    border-bottom: 2px solid #000000 !important;
+    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.latest:hover, .latest:active, .publish:hover, .publish:active, .draft:hover, .draft:active{
+    color:#000000 !important;
+    border-bottom: 2px solid #000000 !important;
+    text-decoration: none !important;
+}
+
+.publish{
+    color:#555555 !important;
+    padding:20px;
+    font-size: 20px;
+    border-bottom: 2px solid #000000 !important;
+    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    
+    
+}
+.draft{
+    color:#555555 !important;
+    padding:20px;
+    font-size: 20px;
+    border-bottom: 2px solid #000000 !important;
+    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-decoration: none !important;
 }

@@ -13,7 +13,7 @@
         {% if messages %}
             {% for message in messages %}
                   
-                <div class="alert alert-warning alert-dismissible fade show" id="mess" role="alert">
+                <div class="alert alert-success alert-dismissible fade show" id="mess" role="alert">
                   <strong><i class="fa fa-bell-o" aria-hidden="true"></i></strong> {{ message }}
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -25,7 +25,7 @@
                             if ($('#mess').length > 0) {
                                 $('#mess').remove();
                             }
-                        }, 2000)
+                        }, 5000)
                 </script>   
             {% endfor %}
         {% endif %}
@@ -72,18 +72,17 @@
                 <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                     <div class="page-wrapper">
                         <div class="blog-top clearfix">
-                            <h4 class="pull-left">Latest News <a href="#"><i class="fa fa-rss"></i></a>
-                                
-                            </h4>
+                            <a href="{% url 'index' %}" active class="latest">Latest</a><hr>
+                            
                         </div><!-- end blog-top -->
 
                         <div class="blog-list clearfix">
-                          
                                                        
                             <!--         ...LATEST POSTS...                       -->
                             
                             {% for post in posts %}
-                            
+                               {% if post.is_published %}
+                                
                                 <div class="blog-box row">
                                     <div class="col-md-4">
                                         <div class="post-media">
@@ -100,14 +99,21 @@
                                     </div><!-- end col -->                 
                                       
                                     <div class="blog-meta big-meta col-md-8">
-                                        <h4><a href="{{ post.get_absolute_url }}" title="">{{ post.title }}</a></h4>
+                                        <h4><a href="{{ post.get_absolute_url }}" title="">{{ post.title }} {{ constant }}</a></h4>
+                                   
+                                           
                                         {% if user.id == post.author.id %}
                                             <small>  
                                             <a href="{% url 'update_post' post.pk %}"> <i class="fa fa-edit">  edit  </i>
                                             </a> |
                                             <a href="{% url 'delete_post' post.pk %}"> <i class="fa fa-trash">  delete  </i>
-                                            </a>
-                                            </small>
+                                            </a> </small>
+                                            
+                                            {% for tag in post.tags.all %}<span>
+                                               <a href="{% url 'tag_detail' tag.slug %}" class="badge badge-info bold" title=""> <i class="fa fa-tag"></i>   {{tag.name|upper}}</a>
+                                              </span>
+                                            {% endfor %}
+                                           
                                         {% endif %}
                                         <p>
                                             {{ post.snippet }}
@@ -123,8 +129,8 @@
                                         <i class="fa fa-eye"></i> {% get_hit_count for post %} </a></small> 
                                     </div><!-- end meta -->
                                 </div><!-- end blog-box -->
-                                <hr class="invis">
-
+                                <hr>
+                                {% endif %}
                                 {% endfor %}
 
                                     <!--    ...LATEST POSTS END...    -->
@@ -207,57 +213,6 @@
 
 
                         <div class="widget">
-                            <h2 class="widget-title">Trend Videos</h2>
-                            <div class="trend-videos">
-                                <div class="blog-box">
-                                    <div class="post-media">
-                                        <a href="{% url 'single' %}" title="">
-                                            <img src="{% static 'upload/tech_video.jpg' %}" alt="" class="img-fluid">
-                                            <div class="hovereffect">
-                                                <span class="videohover"></span>
-                                            </div><!-- end hover -->
-                                        </a>
-                                    </div><!-- end media -->
-                                    <div class="blog-meta">
-                                        <h4><a href="{% url 'single' %}" title="">We prepared the best 10 laptop presentations for you</a></h4>
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
-
-                                <hr class="invis">
-
-                                <div class="blog-box">
-                                    <div class="post-media">
-                                        <a href="{% url 'single' %}" title="">
-                                            <img src="{% static 'upload/tech_video.jpg' %}" alt="" class="img-fluid">
-                                            <div class="hovereffect">
-                                                <span class="videohover"></span>
-                                            </div><!-- end hover -->
-                                        </a>
-                                    </div><!-- end media -->
-                                    <div class="blog-meta">
-                                        <h4><a href="{% url 'single' %}" title="">We are guests of ABC Design Studio - Vlog</a></h4>
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
-
-                                <hr class="invis">
-
-                                <div class="blog-box">
-                                    <div class="post-media">
-                                        <a href="{% url 'single' %}" title="">
-                                            <img src="{% static 'upload/tech_video.jpg' %}" alt="" class="img-fluid">
-                                            <div class="hovereffect">
-                                                <span class="videohover"></span>
-                                            </div><!-- end hover -->
-                                        </a>
-                                    </div><!-- end media -->
-                                    <div class="blog-meta">
-                                        <h4><a href="{% url 'single' %}" title="">Both blood pressure monitor and intelligent clock</a></h4>
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
-                            </div><!-- end videos -->
-                        </div><!-- end widget -->
-
-                        <div class="widget">
                             <h2 class="widget-title">Popular Posts</h2>
                             <div class="blog-list-widget">
                                 <div class="list-group">
@@ -275,7 +230,7 @@
                                                 {% endif %}
                                                  </a>
                                                 
-                                                <h5 class="mb-1">{{ post.title }}</h5>
+                                                <h5 class="mb-1">{{ post.title|slice:":30" }}</h5>
                                                 <small>{{ post.publish.date }}</small>
                                             </div>
                                         </a>
@@ -340,7 +295,7 @@
 
                             <div class="row text-center">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                                    <a href="#" class="social-button facebook-button">
+                                    <a href="{{ FB }}" class="social-button facebook-button">
                                         <i class="fa fa-facebook"></i>
                                         
                                     </a>

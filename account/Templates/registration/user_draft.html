@@ -101,13 +101,13 @@
                                 <br>
                                 <br>
                                 <div class="blog-top clearfix">
-                                    <a href="{% url 'show_profile' user.profile.id %}" class="publish active">Published <i class="fa fa-book"></i></a>
+                                    <a href="{% url 'show_profile' user.profile.id %}" class='publish'>Published <i class="fa fa-book"></i></a>
                                     <a href="{% url 'draft_profile' user.profile.id %}" class="draft">Draft <i class="fa fa-save"></i></a><hr>
                                 </div><!-- end blog-top -->
                                
 
                                 
-                            {% for post in posts %}
+                            {% for post in draft %}
                                {% if profile.id == post.author.profile.id %} 
                                {% if post.is_published %}
                                 <div class="blog-box row">

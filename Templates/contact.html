@@ -37,12 +37,10 @@
                                     <p>Fusce dapibus nunc quis quam tempor vestibulum sit amet consequat enim. Pellentesque blandit hendrerit placerat. Integertis non.</p>
                                 </div>
                                 <div class="col-lg-7">
-                                    <form class="form-wrapper">
-                                        <input type="text" class="form-control" placeholder="Your name">
-                                        <input type="text" class="form-control" placeholder="Email address">
-                                        <input type="text" class="form-control" placeholder="Phone">
-                                        <input type="text" class="form-control" placeholder="Subject">
-                                        <textarea class="form-control" placeholder="Your message"></textarea>
+                                    <form class="form-wrapper" method="POST">
+                                        {% csrf_token %} 
+                                        {{ form.as_p }}
+                                        
                                         <button type="submit" class="btn btn-primary">Send <i class="fa fa-envelope-open-o"></i></button>
                                     </form>
                                 </div>

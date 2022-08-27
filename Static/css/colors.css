@@ -32,7 +32,7 @@ a:focus,
 .search-form .btn:focus,
 .search-form .btn {
     color: #ffffff !important;
-    background-color: #3197d6 !important;
+    background-color: #3197d675 !important;
 }
 
 .tag-cloud-single span,
@@ -42,7 +42,7 @@ a:focus,
 .btn:focus,
 .navbar-inverse .navbar-toggler {
     color: #ffffff !important;
-    background-color: #3197d6;
+    background-color: #3197d645;
 }
 
 .blockquote {

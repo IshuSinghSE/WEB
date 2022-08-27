@@ -3177,11 +3177,13 @@ tbody.collapse.show {
   color: #292b2c;
   text-align: left;
   list-style: none;
-  background-color: #fff;
+  background-color: #ffffffb8;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   -webkit-background-clip: padding-box;
           background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 0.25rem;
+  
 }
 
 .dropdown-divider {
@@ -3202,12 +3204,14 @@ tbody.collapse.show {
   white-space: nowrap;
   background: none;
   border: 0;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
 }
 
 .dropdown-item:focus, .dropdown-item:hover {
   color: #1d1e1f;
   text-decoration: none;
-  background-color: #f7f7f9;
+  background-color: #edededbd !important;
+  backdrop-filter: blur(20px);
 }
 
 .dropdown-item.active, .dropdown-item:active {
@@ -4350,11 +4354,11 @@ tbody.collapse.show {
 }
 
 .navbar-light .navbar-toggler {
-  border-color: rgba(0, 0, 0, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .navbar-light .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }
 
 .navbar-light .navbar-text {
