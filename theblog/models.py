@@ -23,7 +23,15 @@ class PublishedManager(models.Manager):
         return super(PublishedManager,self).get_queryset().filter(status='published')
 
 
-
+link ={
+    'fb':'https://www.facebook.com/',
+    'ig':'https://www.instagram.com/',
+    'tw':'https://www.twitter.com/',
+    'gp':'https://www.googleplus.com/',
+    'yt':'https://www.youtube.com/',
+    'pt':'https://www.pinterest.com/',
+    'tg':'https://www.telegram.com/',
+}
 # POSTS #
 
 class post(models.Model):

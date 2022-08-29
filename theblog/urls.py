@@ -1,7 +1,7 @@
 from django.urls import path, include
 from . import views
 from .views import  HomeView, ArticleView, AddPostView, UpdatePostView, DeletePostView, CategoryView, LikeView, CategoryList, index1, validate_email, tag_detail, TagListView
-from .views import constant
+from .views import link
 #app_name = 'theblog'
 
 
@@ -30,5 +30,12 @@ urlpatterns = [
     path('gadgets/', views.gadgets, name='gadgets'),
     path('author/' , views.author , name='author'),
     path('single/' , views.single , name='single'),
+
+    path('help_support/' , views.help_support , name='help_support'),
+    path('about_us/' , views.about_us , name='about_us'),
+    path('term_privacy/' , views.term_privacy , name='term_privacy'),
+    path('cookies/' , views.cookies , name='cookies'),
+    path('faq/' , views.faq , name='faq'),
+
    
 ]

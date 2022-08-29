@@ -108,6 +108,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+                'min_length': 8,
+    }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -116,6 +119,29 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+PASSWORD_RESET_TIMEOUT = 259200
+
+AUTH_PASSWORD_VALIDATORS = []
+
+PASSWORD_HASHERS =  [
+        'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+        'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+        'django.contrib.auth.hashers.Argon2PasswordHasher',
+        'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+        'django.contrib.auth.hashers.ScryptPasswordHasher',
+        'django.contrib.auth.hashers.ScryptPasswordHasher',
+        'django.contrib.auth.hashers.SHA1PasswordHasher',
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+        'django.contrib.auth.hashers.UnsaltedSHA1PasswordHasher',
+        'django.contrib.auth.hashers.UnsaltedMD5PasswordHasher',
+        'django.contrib.auth.hashers.CryptPasswordHasher',
+        
+]
+
+LOGIN_REDIRECT_URL = '/index/'
+LOGIN_URL = '/account/login/'
+LOGOUT_REDIRECT_URL = '/index/'
 
 
 # Internationalization

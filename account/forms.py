@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm, PasswordResetForm
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django import forms
@@ -57,6 +57,19 @@ class PasswordEditForm(PasswordChangeForm):
 		super(PasswordChangeForm, self).__init__(*args, **kwargs)
 		self.fields['new_password1'].label = "New password"	
 		self.fields['new_password2'].label = "Comfirm password"
+
+class ResetPasswordForm(PasswordResetForm):
+
+	email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-control form-control-lg'}))
+
+	class Meta:
+		model = User
+		fields = ('email')
+
+	def __init__(self, *args, **kwargs):
+		super(ResetPasswordForm, self).__init__(*args, **kwargs)
+
+	
 
 class ProfilePageForm(forms.ModelForm):
 	class Meta:

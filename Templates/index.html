@@ -25,7 +25,7 @@
                             if ($('#mess').length > 0) {
                                 $('#mess').remove();
                             }
-                        }, 5000)
+                        }, 50000)
                 </script>   
             {% endfor %}
         {% endif %}
@@ -99,7 +99,7 @@
                                     </div><!-- end col -->                 
                                       
                                     <div class="blog-meta big-meta col-md-8">
-                                        <h4><a href="{{ post.get_absolute_url }}" title="">{{ post.title }} {{ constant }}</a></h4>
+                                        <h4><a href="{{ post.get_absolute_url }}" title="">{{ post.title }}</a></h4>
                                    
                                            
                                         {% if user.id == post.author.id %}
@@ -176,7 +176,7 @@
                                     {% endif %}
 
                                     <!-- Navigate pages -->
-                                    {% for num in page_obj.paginator %}
+                                    {% for num in page_obj.Paginator %}
                                         {% if page_obj.number == num %}
                                             <li class="page-item"><a class="page-link active" href="?page={{ num }}">{{ num }}</a></li>
                                         {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
@@ -186,7 +186,7 @@
 
                                     {% if page_obj.has_next %}
                                         <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
-                                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>
+                                        <!-- <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a></li> -->
                                     {% endif %}              
                                    
                                 </ul>
@@ -294,36 +294,36 @@
                             <h2 class="widget-title">Follow Us</h2>
 
                             <div class="row text-center">
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                                    <a href="{{ FB }}" class="social-button facebook-button">
+                                <div class="col-lg-12 col-md-12 col-sm-1 col-xs-10">
+                                    <a href="{{ link.fb }}" class="social-button facebook-button">
                                         <i class="fa fa-facebook"></i>
                                         
                                     </a>
                                 </div>
 
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
-                                    <a href="#" class="social-button instagram-button">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-xs-10">
+                                    <a href="{{ link.ig }}" class="social-button instagram-button">
                                         <i class="fa fa-instagram"></i>
                                        
                                     </a>
                                 </div>
 
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
-                                    <a href="#" class="social-button twitter-button">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-xs-10">
+                                    <a href="{{ link.tw }}" class="social-button twitter-button">
                                         <i class="fa fa-twitter"></i>
                                         
                                     </a>
                                 </div>
 
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
-                                    <a href="#" class="social-button google-button">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-xs-10">
+                                    <a href="{{ link.gp }}" class="social-button google-button">
                                         <i class="fa fa-google-plus"></i>
                                        
                                     </a>
                                 </div>
 
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
-                                    <a href="#" class="social-button youtube-button">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-xs-10">
+                                    <a href="{{ link.yt }}" class="social-button youtube-button">
                                         <i class="fa fa-youtube"></i>
                                         
                                     </a>

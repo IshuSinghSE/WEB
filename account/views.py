@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.views.generic import DetailView, CreateView, View
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm, PasswordResetForm
 
 from django.urls import reverse_lazy
-from .forms import SignUpForm, UserEditForm, PasswordEditForm, ProfilePageForm
-from theblog.models import profile, post 
+from .forms import SignUpForm, UserEditForm, PasswordEditForm, ProfilePageForm, ResetPasswordForm
+from theblog.models import profile, post, category, link 
 from django.core.paginator import Paginator
 from hitcount.views import HitCountDetailView
 
@@ -105,10 +105,11 @@ class ActivateAccount(View):
             
 
 
-class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+class ResetPasswordView(PasswordResetView):
+	form_class = PasswordResetForm
 	template_name = 'registration/password_reset.html'
 	email_template_name = 'registration/password_reset_email.html'
-	subject_template_name = 'registaration/password_reset_subject'
+	subject_template_name = 'registration/password_reset_subject.txt'
 	success_message = "We've emailed you instructions for setting your password, " \
                       "if an account exists with the email you entered. You should receive them shortly." \
                       " If you don't receive an email, " \
@@ -134,6 +135,7 @@ class ShowProfile(DetailView):
 	    context.update({'popular_posts': post.objects.filter(approved=True, status='published').order_by('-hit_count_generic__hits')[0:5],})
 		
 	    page_user = get_object_or_404(profile, id=self.kwargs['pk'])
+	    context["link"] = link
 	    context["page_user"] = page_user
 	    return context
 

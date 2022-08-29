@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView , CreateView, DetailView, UpdateView, DeleteView
-from .models import post, category, Comment
+from .models import post, category, Comment, link
+from django.db.models import Count
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from .forms import PostForm, EditForm, CommentForm, ContactForm
@@ -21,12 +22,12 @@ import datetime
 from datetime import timedelta
 
 # Create your views here.
-constant = 'https://www.facebook.com/'
+
 
 class HomeView(ListView):
     model = post
     template_name = "index.html"
-    
+    context_object_name = "post"
     paginate_by = 3
     ordering = ['-publish']
 
@@ -36,6 +37,8 @@ class HomeView(ListView):
         today = datetime.date.today() - timedelta(days=7)
         category_menu = category.objects.all()
         tags_menu     = Tag.objects.all()
+       
+
         context = super(HomeView, self).get_context_data(*args, **kwargs)
         context.update({'posts': post.objects.filter(approved =True, publish__isnull=False, status='published').all().order_by('-publish',)})
         context.update({'draft': post.objects.filter(publish__isnull=False, status='draft').all().order_by('-publish',)})
@@ -48,10 +51,13 @@ class HomeView(ListView):
         context.update({'coding'    : post.objects.filter(category = 'coding', approved = True, status='published').all().order_by('-hit_count_generic__hits')[0:4],})
         context.update({'worldwide':  post.objects.filter(category = 'worldwide', approved = True, status='published').order_by('-hit_count_generic__hits')[0:4],})
 
-
+        #context["page_obj"] = page_obj
         context["category_menu"] = category_menu
         context["tags_menu"] = tags_menu
+        context["link"] = link
         return context
+
+        
 
 
 class ArticleView(HitCountDetailView):
@@ -62,10 +68,11 @@ class ArticleView(HitCountDetailView):
     #paginate_by = 1
     count_hit = True
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, *args, **kwargs,):
         
         category_menu = category.objects.all()
         tags_menu     = Tag.objects.all()
+        post_tags_ids = post.tags.values_list('id', flat = True)
         #post_list = post.objects.all()
         context = super(ArticleView, self).get_context_data(*args, **kwargs)
         context.update({'popular_posts': post.objects.filter(approved =True, status='published').order_by('-hit_count_generic__hits')[:10],})
@@ -74,6 +81,7 @@ class ArticleView(HitCountDetailView):
         context.update({'social_media': post.objects.filter(category = 'social media', approved = True, status='published').order_by('-hit_count_generic__hits')[0:4],})
         context.update({'coding'    : post.objects.filter(category = 'coding', approved = True, status='published').all().order_by('-hit_count_generic__hits')[0:4],})
         context.update({'worldwide':  post.objects.filter(category = 'worldwide', approved = True, status='published').order_by('-hit_count_generic__hits')[0:4],})
+        context.update({'similar_post':  post.published.filter(tags__in=post_tags_ids, approved = True, status='published').annotate(same_tags=Count('tags')).order_by('-publish')[0:2],})
 
 
         connected_comments = Comment.objects.filter(CommentPost=self.get_object())
@@ -81,6 +89,7 @@ class ArticleView(HitCountDetailView):
         context['comments'] = connected_comments
         context['no_of_comments'] = number_of_comments
         context['comment_form'] = CommentForm()
+        
         #stuff = get_object_or_404(post, id=self.kwargs[slug])
         #total_likes = stuff.total_likes()
 
@@ -93,6 +102,7 @@ class ArticleView(HitCountDetailView):
         context["liked"] = liked
         context["category_menu"] = category_menu
         context["tags_menu"] = tags_menu
+        context["link"] = link
         return context
 
     def post(self, request, *args, **kwargs):
@@ -337,7 +347,22 @@ def gadgets(request):
 
 def author(request):
     return render(request,'author.html') 
+    
+def help_support(request):
+    return render(request,'help_support.html') 
 
+def about_us(request):
+    return render(request,'about_us.html') 
+
+def term_privacy(request):
+    return render(request,'term_privacy.html') 
+
+def cookies(request):
+    return render(request,'cookies.html') 
+
+def faq(request):
+    return render(request,'faq.html') 
+    
 def single(request):
     return render(request,'single.html') 
 

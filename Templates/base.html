@@ -367,13 +367,13 @@
                         <a href="{% url 'index' %}"><img src="{% static 'images/version/tech-footer-logo.png' %}" alt="" class="img-fluid"></a>
                         <p>Tech Blog is a technology blog, we sharing marketing, news and gadget articles.</p>
                         <div class="social">
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>              
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fa fa-instagram"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Google Plus"><i class="fa fa-google-plus"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="fa fa-pinterest"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Telegram"><i class="fa fa-telegram"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Youtube"><i class="fa fa-youtube"></i></a>
+                            <a href="{{ link.fb }}" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>              
+                            <a href="{{ link.tw }}" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
+                            <a href="{{ link.ig }}" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fa fa-instagram"></i></a>
+                            <a href="{{ link.gp }}" data-toggle="tooltip" data-placement="bottom" title="Google Plus"><i class="fa fa-google-plus"></i></a>
+                            <a href="{{ link.pt }}" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="fa fa-pinterest"></i></a>
+                            <a href="{{ link.tg }}" data-toggle="tooltip" data-placement="bottom" title="Telegram"><i class="fa fa-telegram"></i></a>
+                            <a href="{{ link.yt }}" data-toggle="tooltip" data-placement="bottom" title="Youtube"><i class="fa fa-youtube"></i></a>
                         </div>
 
                         <hr class="invis">
@@ -419,12 +419,12 @@
                     <h2 class="widget-title">Copyrights</h2>
                     <div class="link-widget">
                         <ul>
-                            <li><a href="#">Help & Support</a></li>
-                            <li><a href="#">Contact us</a></li>
-                            <li><a href="#">About us</a></li>
-                            <li><a href="#">Terms</a></li>
-                            <li><a href="#">Privacy </a></li>
-                            <li><a href="#">FAQ</a></li>
+                            <li><a href="{% url 'help_support' %}">Help & Support</a></li>
+                            <li><a href="{% url 'contact' %}">Contact us</a></li>
+                            <li><a href="{% url 'about_us' %}">About us</a></li>
+                            <li><a href="{% url 'term_privacy' %}">Terms & Privacy </a></li>
+                            <li><a href="{% url 'cookies' %}">Cookies</a></li>
+                            <li><a href="{% url 'faq' %}">FAQ</a></li>
 
 
                            <!-- <li><a href="#">Advertising</a></li>
