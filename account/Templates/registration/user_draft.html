@@ -143,7 +143,7 @@
                                         <small><a href="#" title="">By {{ post.author.first_name }} {{ post.author.last_name }}</a></small>
                                         <small>
                                             <i class="fa fa-eye"></i> {% get_hit_count for post %}</small> 
-                                        <span class="badge badge-success">Published</span>
+                                        <span class="badge badge-info">Draft</span>
                                        <!-- <small><a href="{% url 'single' %}" title="">
                                         <i class="fa fa-eye"></i> 1114</a></small> -->
                                     </div><!-- end meta -->
@@ -219,45 +219,45 @@
                     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                         <div class="sidebar">
                             <div class="widget">
-                                <h2 class="widget-title">Follow Us</h2>
-    
-                                <div class="row text-center">
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                                        <a href="#" class="social-button facebook-button">
-                                            <i class="fa fa-facebook"></i>
-                                            
-                                        </a>
-                                    </div>
-    
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
-                                        <a href="#" class="social-button instagram-button">
-                                            <i class="fa fa-instagram"></i>
-                                           
-                                        </a>
-                                    </div>
-    
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
-                                        <a href="#" class="social-button twitter-button">
-                                            <i class="fa fa-twitter"></i>
-                                            
-                                        </a>
-                                    </div>
-    
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
-                                        <a href="#" class="social-button google-button">
-                                            <i class="fa fa-google-plus"></i>
-                                           
-                                        </a>
-                                    </div>
-    
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
-                                        <a href="#" class="social-button youtube-button">
-                                            <i class="fa fa-youtube"></i>
-                                            
-                                        </a>
-                                    </div>
+                            <h2 class="widget-title">Follow Us</h2>
+
+                            <div class="row text-center">
+                                <div class="col-lg-12 col-md-12 col-sm-1 col-xs-10">
+                                    <a href="{{ link.fb }}" class="social-button facebook-button">
+                                        <i class="fa fa-facebook"></i>
+                                        
+                                    </a>
                                 </div>
-                            </div><!-- end widget -->
+
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-xs-10">
+                                    <a href="{{ link.ig }}" class="social-button instagram-button">
+                                        <i class="fa fa-instagram"></i>
+                                       
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-xs-10">
+                                    <a href="{{ link.tw }}" class="social-button twitter-button">
+                                        <i class="fa fa-twitter"></i>
+                                        
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-xs-10">
+                                    <a href="{{ link.gp }}" class="social-button google-button">
+                                        <i class="fa fa-google-plus"></i>
+                                       
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-xs-10">
+                                    <a href="{{ link.yt }}" class="social-button youtube-button">
+                                        <i class="fa fa-youtube"></i>
+                                        
+                                    </a>
+                                </div>
+                            </div>
+                        </div><!-- end widget -->
                             
                             <div class="widget">
                                 <div class="banner-spot clearfix">
@@ -267,56 +267,28 @@
                                 </div><!-- end banner -->
                             </div><!-- end widget -->
 
-                            <div class="widget">
-                                <h2 class="widget-title">Trend Videos</h2>
-                                <div class="trend-videos">
-                                    <div class="blog-box">
-                                        <div class="post-media">
-                                            <a href="{% url 'single' %}" title="">
-                                                <img src="{% static 'upload/tech_video.jpg' %}" alt="" class="img-fluid">
-                                                <div class="hovereffect">
-                                                    <span class="videohover"></span>
-                                                </div><!-- end hover -->
-                                            </a>
-                                        </div><!-- end media -->
-                                        <div class="blog-meta">
-                                            <h4><a href="{% url 'single' %}" title="">We prepared the best 10 laptop presentations for you</a></h4>
-                                        </div><!-- end meta -->
-                                    </div><!-- end blog-box -->
+                            <!------                          <div class="widget">
+                            <h2 class="widget-title">Trend Videos</h2>
+                            <div class="trend-videos">
+                                <div class="blog-box">
+                                    <div class="post-media">
+                                        <a href="{% url 'single' %}" title="">
+                                            <img src="{% static 'upload/tech_video.jpg' %}" alt="" class="img-fluid">
+                                            <div class="hovereffect">
+                                                <span class="videohover"></span>
+                                            </div>- 
+                                        </a>
+                                    </div>
+                                    <div class="blog-meta">
+                                        <h4><a href="{% url 'single' %}" title="">We prepared the best 10 laptop presentations for you</a></h4>
+                                    </div>
+                                </div>
 
-                                    <hr class="invis">
+                                <hr class="invis">
 
-                                    <div class="blog-box">
-                                        <div class="post-media">
-                                            <a href="{% url 'single' %}" title="">
-                                                <img src="{% static 'upload/tech_video.jpg' %}" alt="" class="img-fluid">
-                                                <div class="hovereffect">
-                                                    <span class="videohover"></span>
-                                                </div><!-- end hover -->
-                                            </a>
-                                        </div><!-- end media -->
-                                        <div class="blog-meta">
-                                            <h4><a href="{% url 'single' %}" title="">We are guests of ABC Design Studio - Vlog</a></h4>
-                                        </div><!-- end meta -->
-                                    </div><!-- end blog-box -->
-
-                                    <hr class="invis">
-
-                                    <div class="blog-box">
-                                        <div class="post-media">
-                                            <a href="{% url 'single' %}" title="">
-                                                <img src="{% static 'upload/tech_video.jpg' %}" alt="" class="img-fluid">
-                                                <div class="hovereffect">
-                                                    <span class="videohover"></span>
-                                                </div><!-- end hover -->
-                                            </a>
-                                        </div><!-- end media -->
-                                        <div class="blog-meta">
-                                            <h4><a href="{% url 'single' %}" title="">Both blood pressure monitor and intelligent clock</a></h4>
-                                        </div><!-- end meta -->
-                                    </div><!-- end blog-box -->
-                                </div><!-- end videos -->
-                            </div><!-- end widget -->
+                            </div>
+                        </div>
+---------->
 
                             <div class="widget">
                             <h2 class="widget-title">Popular Posts</h2>

@@ -452,7 +452,7 @@
                         <div class="page-wrapper">
                             <div class="blog-title-area text-center">
                                 <ol class="breadcrumb hidden-xs-down">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'index'  %}">Home</a></li>
                                     <li class="breadcrumb-item"><a href="#">Blog</a></li>
                                     <li class="breadcrumb-item active">Top 10 phone applications and 2017 mobile design awards</li>
                                 </ol>
@@ -863,38 +863,45 @@
                             </div><!-- end widget -->
 
                             <div class="widget">
-                                <h2 class="widget-title">Follow Us</h2>
+                            <h2 class="widget-title">Follow Us</h2>
 
-                                <div class="row text-center">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                        <a href="#" class="social-button facebook-button">
-                                            <i class="fa fa-facebook"></i>
-                                            <p>27k</p>
-                                        </a>
-                                    </div>
-
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                        <a href="#" class="social-button twitter-button">
-                                            <i class="fa fa-twitter"></i>
-                                            <p>98k</p>
-                                        </a>
-                                    </div>
-
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                        <a href="#" class="social-button google-button">
-                                            <i class="fa fa-google-plus"></i>
-                                            <p>17k</p>
-                                        </a>
-                                    </div>
-
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                        <a href="#" class="social-button youtube-button">
-                                            <i class="fa fa-youtube"></i>
-                                            <p>22k</p>
-                                        </a>
-                                    </div>
+                            <div class="row text-center">
+                                <div class="col-lg-12 col-md-12 col-sm-1 col-xs-10">
+                                    <a href="{{ link.fb }}" class="social-button facebook-button">
+                                        <i class="fa fa-facebook"></i>
+                                        
+                                    </a>
                                 </div>
-                            </div><!-- end widget -->
+
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-xs-10">
+                                    <a href="{{ link.ig }}" class="social-button instagram-button">
+                                        <i class="fa fa-instagram"></i>
+                                       
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-xs-10">
+                                    <a href="{{ link.tw }}" class="social-button twitter-button">
+                                        <i class="fa fa-twitter"></i>
+                                        
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-xs-10">
+                                    <a href="{{ link.gp }}" class="social-button google-button">
+                                        <i class="fa fa-google-plus"></i>
+                                       
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-xs-10">
+                                    <a href="{{ link.yt }}" class="social-button youtube-button">
+                                        <i class="fa fa-youtube"></i>
+                                        
+                                    </a>
+                                </div>
+                            </div>
+                        </div><!-- end widget -->
 
                             <div class="widget">
                                 <div class="banner-spot clearfix">

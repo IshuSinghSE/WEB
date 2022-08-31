@@ -20,10 +20,11 @@ class SignUpForm(UserCreationForm):
 		self.fields['password1'].widget.attrs['class'] = 'form-control form-control-lg'
 		self.fields['password2'].widget.attrs['class'] = 'form-control form-control-lg'
 
-	#def clean(self):
-		#cleaned_data=super.clean()
-	#	if user.objects.filter(username=cleaned_data["username"].exists()):
-	#		raise ValidationError("The username is taken, please try another one!")
+	# def cleaned(self):
+		# cleaned_data=super.cleaned()
+		# if user.objects.filter(username=cleaned_data["username"].exists()):
+			# raise ValidationError("The username is taken, please try another one!")
+
 
 class UserEditForm(forms.ModelForm):
 	username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control form-control-lg'}))

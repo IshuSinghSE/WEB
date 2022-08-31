@@ -19,13 +19,14 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 
-
+# w
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('theblog.urls')),
-    path('account/', include('django.contrib.auth.urls')),
-    path('account/', include('account.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('account.urls')),
+    # path('', include('socialShare.urls')),
 
    
 

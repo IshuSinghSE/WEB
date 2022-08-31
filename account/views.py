@@ -14,6 +14,7 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmVie
 from django.contrib.messages.views import SuccessMessageMixin 
 from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import JsonResponse
@@ -30,15 +31,18 @@ from .tokens import account_activation_token
 
 def login_user(request):
 
+	#form_class = UserLoginForm
+	logout(request)
 	if request.method == "POST":
 		username = request.POST['username']
 		password = request.POST['password']
 		user = authenticate(request, username=username, password=password)
 
 		if user is not None:
-				login(request, user)
-				messages.success(request, ("Welcome " + username + " have Logged in Successfuly! "))
-				return redirect('/')
+				if user.is_active:
+					login(request, user)
+					messages.success(request, ("Welcome " + username + " have Logged in Successfuly! "))
+					return HttpResponseRedirect('/')
 		else:
 			messages.error(request, ("Something went wrong, Try Again! "))
 			return redirect('login')
@@ -50,13 +54,13 @@ def login_user(request):
 def logout_user(request):
 	logout(request)
 	messages.success(request, "You have Logged Out Successfuly! ")
-	return redirect('/')
+	return HttpResponseRedirect('/')
 
 
 class UserSignUp(generic.CreateView):
 	form_class = SignUpForm
 	template_name = 'registration/register.html'
-	#success_url = reverse_lazy('login')
+	success_url = reverse_lazy('login')
 
 	def get(self, request, *args, **kwargs):
 		form =self.form_class()
@@ -93,7 +97,7 @@ class ActivateAccount(View):
 
         if user is not None and account_activation_token.check_token(user, token):
             user.is_active = True
-            user.profile.email_confirmed = True
+            user.email_confirmed = True
             user.save()
             login(request, user)
             messages.success(request, ('Your account have been confirmed.'))
@@ -131,7 +135,8 @@ class ShowProfile(DetailView):
 	def get_context_data(self, *args, **kwargs):
 	    users = profile.objects.all()
 	    context = super(ShowProfile, self).get_context_data(*args, **kwargs)
-	    context.update({'posts': post.objects.filter(publish__isnull=False, status='published',approved =True).all().order_by('-publish',)})
+	    context.update({'posts': post.objects.filter(publish__isnull=False, status='published', approved=True).all().order_by('-publish',)})
+	    context.update({'approve': post.objects.filter(publish__isnull=False, status='published', approved=False).all().order_by('-publish',)})
 	    context.update({'popular_posts': post.objects.filter(approved=True, status='published').order_by('-hit_count_generic__hits')[0:5],})
 		
 	    page_user = get_object_or_404(profile, id=self.kwargs['pk'])

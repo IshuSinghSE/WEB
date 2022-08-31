@@ -42,7 +42,7 @@ class HomeView(ListView):
         context = super(HomeView, self).get_context_data(*args, **kwargs)
         context.update({'posts': post.objects.filter(approved =True, publish__isnull=False, status='published').all().order_by('-publish',)})
         context.update({'draft': post.objects.filter(publish__isnull=False, status='draft').all().order_by('-publish',)})
-        context.update({'feed': post.objects.filter(approved =True, publish__gt = today, status='published').order_by('-hit_count_generic__hits')[0:4],})
+        context.update({'feed': post.objects.filter(feed=True,approved =True,  status='published')})
         context.update({'popular_posts': post.objects.filter(approved =True, status='published').order_by('-hit_count_generic__hits')[0:10],})
 
         context.update({'science'   : post.objects.filter(category = 'science', approved = True, status='published').all().order_by('-hit_count_generic__hits')[0:4],})
@@ -55,9 +55,8 @@ class HomeView(ListView):
         context["category_menu"] = category_menu
         context["tags_menu"] = tags_menu
         context["link"] = link
-        return context
-
         
+        return context
 
 
 class ArticleView(HitCountDetailView):
@@ -68,7 +67,7 @@ class ArticleView(HitCountDetailView):
     #paginate_by = 1
     count_hit = True
 
-    def get_context_data(self, *args, **kwargs,):
+    def get_context_data(self, *args, **kwargs):
         
         category_menu = category.objects.all()
         tags_menu     = Tag.objects.all()
@@ -122,9 +121,8 @@ class ArticleView(HitCountDetailView):
             return redirect(self.request.path_info, 'article_detail.html')
             
 
-    def delete_post(self, request, *args, id):
-            new_comment = Comment(body=body, author=self.request.user, CommentPost=self.get_object(), parent=parent)
-            new_comment.delete()
+    def delete_post(self, id, request, *args):
+
             messages.success(self.request, 'Your comment ' + '"' + str(body) + '"' + ' has been succesfully created ! ')
             return redirect(self.request.path_info, 'article_detail.html', args=[str(id)])
 
@@ -199,6 +197,8 @@ def CategoryView(request, categories):
    # def get_context_data(self, *args, **kwargs):
     category_menu = category.objects.all()
     context={'categories':categories.replace('-',' ').title(), 'category_posts':category_posts}
+    
+    context.update({'popular_posts': post.objects.filter(approved =True, status='published').order_by('-hit_count_generic__hits')[:10],})
    # context = super(CategoryView, self).get_context_data(*args, **kwargs)
     context.update({'science'   : post.objects.filter(category = 'science', approved = True, status='published').all().order_by('-hit_count_generic__hits')[0:4],})
     context.update({'technology': post.objects.filter(category = 'technology', approved = True, status='published').order_by('-hit_count_generic__hits')[0:4],})
@@ -210,11 +210,10 @@ def CategoryView(request, categories):
     return render(request, 'categories.html',context )
 
 def CategoryList(request):
-    category_list_menu = category.objects.all()
-
+    category_list = category.objects.all()
    
     category_menu = category.objects.all()
-    context={ 'category_list_menu':category_list_menu}
+    context={ 'category_list':category_list}
     context.update({'science'   : post.objects.filter(category = 'science', approved = True, status='published').all().order_by('-hit_count_generic__hits')[0:4],})
     context.update({'technology': post.objects.filter(category = 'technology', approved = True, status='published').order_by('-hit_count_generic__hits')[0:4],})
     context.update({'social_media': post.objects.filter(category = 'social media', approved = True, status='published').order_by('-hit_count_generic__hits')[0:4],})
@@ -255,7 +254,7 @@ def index1(request):
         
         send_mail(subject, message, email_from, recipient_list)
         messages.success(request, "Newsletter Sent! ")
-        return redirect('contact')
+        return redirect('index')
         
         # res = JsonResponse({'msg': 'Thanks. Subscribed Successfully!'})
         # return res

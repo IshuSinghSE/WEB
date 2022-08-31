@@ -1,8 +1,22 @@
 from django.urls import path, include
 from . import views
-from .views import  HomeView, ArticleView, AddPostView, UpdatePostView, DeletePostView, CategoryView, LikeView, CategoryList, index1, validate_email, tag_detail, TagListView
+from .views import  (HomeView,
+                     ArticleView,
+                     AddPostView,
+                     UpdatePostView,
+                     DeletePostView,
+                     CategoryView,
+                     LikeView,
+                     CategoryList,
+                     index1,
+                     validate_email,
+                     tag_detail,
+                     TagListView
+                     ,)
 from .views import link
+
 #app_name = 'theblog'
+
 
 
 urlpatterns = [
@@ -17,7 +31,7 @@ urlpatterns = [
     path('article/edit/<int:pk>',UpdatePostView.as_view(), name='update_post'),
     path('article/<int:pk>/delete',DeletePostView.as_view(), name='delete_post'),
     path('category/<str:categories>/',CategoryView, name='category'),
-    path('category-list/',CategoryList, name='category_list'),
+    path('category/',CategoryList, name='category_list'),
     #path('like/<slug:slug>',LikeView,name="post_likes"), 
     path('like/<int:pk>',LikeView,name="post_likes"),
     #path('tag/<slug:tag>/', TagListView.as_view(),name='tag_detail'),

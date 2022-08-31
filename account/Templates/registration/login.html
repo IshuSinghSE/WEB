@@ -51,11 +51,14 @@ login...
           <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
             <form method="POST" >
              {% csrf_token %} 
-             {{ form.as_p }}
+             
 
               <div class="text-center mb-3">
                 <br>
                 <p>Sign in with:</p>
+                {% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
 
                 
                 <div class="row text-center">
@@ -89,17 +92,18 @@ login...
 
               <br>
               <p class="text-center">or</p>
+            
 
               <!-- Email input -->
               <div class="form-outline  m-4">
                <!-- <label class="form-label select-label" for="loginName">Email or username</label> -->
-                <input type="text" id="loginName" class="form-control" name="username" placeholder="Email or username" required />
+                <input type="text" id="id_username" class="form-control" name="username" placeholder="Email or username" required />
               </div>
 
               <!-- Password input -->
               <div class="form-outline  m-4 ">
               <!--  <label class="form-label" for="loginPassword">Password</label> -->
-                <input type="password" id="loginPassword" class="form-control" name="password" placeholder="password" required />
+                <input type="password" id="id_password" class="form-control" name="password" placeholder="password" required />
               </div>
 
               <!-- 2 column grid layout -->

@@ -350,6 +350,14 @@ a:focus {
     border-color: #d4f6f1 !important;
 }
 
+.ws-button.btn-primary:hover,
+.ws-button.btn-primary:focus,
+.ws-button.btn-primary {
+    background: #000000 !important;
+    border-color: #000000 !important;
+}
+
+
 
 @media (max-width: 1080px) {
     .first-section .blog-meta h4 {

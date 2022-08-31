@@ -105,7 +105,51 @@
                                     <a href="{% url 'draft_profile' user.profile.id %}" class="draft">Draft <i class="fa fa-save"></i></a><hr>
                                 </div><!-- end blog-top -->
                                
+                        {% for post in approve %}
+                        {% if profile.id == post.author.profile.id %} 
+                        {% if post.is_published %}
+                            <div class="blog-box row">
+                                <div class="col-md-4">
+                                    <div class="post-media">
+                                        <a href="{{ post.get_absolute_url }}" title="">
+                                    {% if post.image %}
+                                            <img src="{{ post.image.url }}" alt="{{ post.title }}" width='600px' height='500px' class="img-fluid">
+                                    {% else %}
 
+                                            <img src="{% static 'upload/tech_blog_01.jpg' %}" alt="" class="img-fluid">
+                                    {% endif %}
+                                            <div class="hovereffect"></div>
+                                        </a>
+                                    </div><!-- end media -->
+                                </div><!-- end col -->                 
+                                
+                                <div class="blog-meta big-meta col-md-8">
+                                    <h4><a href="#" title="">{{ post.title }}</a></h4>
+                                    {% if user.id == post.author.id %}
+                                        <small>  
+                                        <a href="{% url 'update_post' post.pk %}"> <i class="fa fa-edit">  edit  </i>
+                                        </a> |
+                                        <a href="{% url 'delete_post' post.pk %}"> <i class="fa fa-trash">  delete  </i>
+                                        </a>
+                                        </small>
+                                    {% endif %}
+                                    <p>
+                                        {{ post.snippet }}
+                                    </p>
+                                    <small class="firstsmall"><a class="bg-orange" href="{% url 'category' post.category|slugify %}" title="">{{ post.category }}</a></small>
+                                    <small><a href="{% url 'single' %}" title=""><i class="fa fa-clock-o"></i>  {{ post.publish|naturaltime }}</a></small>
+                                    <small><a href="#" title="">By {{ post.author.first_name }} {{ post.author.last_name }}</a></small>
+                                    <small>
+                                        <i class="fa fa-eye"></i> {% get_hit_count for post %}</small> 
+                                    <span class="badge badge-warning">Pending</span>
+                                <!-- <small><a href="{% url 'single' %}" title="">
+                                    <i class="fa fa-eye"></i> 1114</a></small> -->
+                                </div><!-- end meta -->
+                            </div><!-- end blog-box -->
+                            <hr>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
                                 
                             {% for post in posts %}
                                {% if profile.id == post.author.profile.id %} 
@@ -222,36 +266,36 @@
                                 <h2 class="widget-title">Follow Us</h2>
     
                                 <div class="row text-center">
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                                        <a href="#" class="social-button facebook-button">
+                                    <div class="col-lg-12 col-md-12 col-sm-1 col-xs-10">
+                                        <a href="{{ link.fb }}" class="social-button facebook-button">
                                             <i class="fa fa-facebook"></i>
                                             
                                         </a>
                                     </div>
     
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
-                                        <a href="#" class="social-button instagram-button">
+                                    <div class="col-lg-12 col-md-12 col-sm-3 col-xs-10">
+                                        <a href="{{ link.ig }}" class="social-button instagram-button">
                                             <i class="fa fa-instagram"></i>
                                            
                                         </a>
                                     </div>
     
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
-                                        <a href="#" class="social-button twitter-button">
+                                    <div class="col-lg-12 col-md-12 col-sm-3 col-xs-10">
+                                        <a href="{{ link.tw }}" class="social-button twitter-button">
                                             <i class="fa fa-twitter"></i>
                                             
                                         </a>
                                     </div>
     
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
-                                        <a href="#" class="social-button google-button">
+                                    <div class="col-lg-12 col-md-12 col-sm-3 col-xs-10">
+                                        <a href="{{ link.gp }}" class="social-button google-button">
                                             <i class="fa fa-google-plus"></i>
                                            
                                         </a>
                                     </div>
     
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
-                                        <a href="#" class="social-button youtube-button">
+                                    <div class="col-lg-12 col-md-12 col-sm-3 col-xs-10">
+                                        <a href="{{ link.yt }}" class="social-button youtube-button">
                                             <i class="fa fa-youtube"></i>
                                             
                                         </a>
@@ -267,56 +311,28 @@
                                 </div><!-- end banner -->
                             </div><!-- end widget -->
 
-                            <div class="widget">
-                                <h2 class="widget-title">Trend Videos</h2>
-                                <div class="trend-videos">
-                                    <div class="blog-box">
-                                        <div class="post-media">
-                                            <a href="{% url 'single' %}" title="">
-                                                <img src="{% static 'upload/tech_video.jpg' %}" alt="" class="img-fluid">
-                                                <div class="hovereffect">
-                                                    <span class="videohover"></span>
-                                                </div><!-- end hover -->
-                                            </a>
-                                        </div><!-- end media -->
-                                        <div class="blog-meta">
-                                            <h4><a href="{% url 'single' %}" title="">We prepared the best 10 laptop presentations for you</a></h4>
-                                        </div><!-- end meta -->
-                                    </div><!-- end blog-box -->
+                            <!------                          <div class="widget">
+                            <h2 class="widget-title">Trend Videos</h2>
+                            <div class="trend-videos">
+                                <div class="blog-box">
+                                    <div class="post-media">
+                                        <a href="{% url 'single' %}" title="">
+                                            <img src="{% static 'upload/tech_video.jpg' %}" alt="" class="img-fluid">
+                                            <div class="hovereffect">
+                                                <span class="videohover"></span>
+                                            </div>- 
+                                        </a>
+                                    </div>
+                                    <div class="blog-meta">
+                                        <h4><a href="{% url 'single' %}" title="">We prepared the best 10 laptop presentations for you</a></h4>
+                                    </div>
+                                </div>
 
-                                    <hr class="invis">
+                                <hr class="invis">
 
-                                    <div class="blog-box">
-                                        <div class="post-media">
-                                            <a href="{% url 'single' %}" title="">
-                                                <img src="{% static 'upload/tech_video.jpg' %}" alt="" class="img-fluid">
-                                                <div class="hovereffect">
-                                                    <span class="videohover"></span>
-                                                </div><!-- end hover -->
-                                            </a>
-                                        </div><!-- end media -->
-                                        <div class="blog-meta">
-                                            <h4><a href="{% url 'single' %}" title="">We are guests of ABC Design Studio - Vlog</a></h4>
-                                        </div><!-- end meta -->
-                                    </div><!-- end blog-box -->
-
-                                    <hr class="invis">
-
-                                    <div class="blog-box">
-                                        <div class="post-media">
-                                            <a href="{% url 'single' %}" title="">
-                                                <img src="{% static 'upload/tech_video.jpg' %}" alt="" class="img-fluid">
-                                                <div class="hovereffect">
-                                                    <span class="videohover"></span>
-                                                </div><!-- end hover -->
-                                            </a>
-                                        </div><!-- end media -->
-                                        <div class="blog-meta">
-                                            <h4><a href="{% url 'single' %}" title="">Both blood pressure monitor and intelligent clock</a></h4>
-                                        </div><!-- end meta -->
-                                    </div><!-- end blog-box -->
-                                </div><!-- end videos -->
-                            </div><!-- end widget -->
+                            </div>
+                        </div>
+---------->
 
                             <div class="widget">
                             <h2 class="widget-title">Popular Posts</h2>

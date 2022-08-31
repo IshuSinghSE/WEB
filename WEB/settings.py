@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'hitcount',
     'taggit',
     'embed_video',
+    'django_social_share',
 ]
 
 TAGGIT_CASE_INSENSITIVE = True
@@ -140,8 +141,9 @@ PASSWORD_HASHERS =  [
 ]
 
 LOGIN_REDIRECT_URL = '/index/'
-LOGIN_URL = '/account/login/'
+LOGIN_URL = '/accounts/login/'
 LOGOUT_REDIRECT_URL = '/index/'
+
 
 
 # Internationalization
@@ -193,7 +195,7 @@ EMAIL_HOST_USER = 'ishu.111636@gmail.com'
 EMAIL_HOST_PASSWORD = 'xuhkpeyarbqsnyip'
 EMAIL_USE_SSL = False
 DEFAULT_FROM_EMAIL = 'ishu.111636@gmail.com'
-
+FB = 'https://ishu.com/'
 """
 EMAIL_BACKEND = 'django_mailjet.backends.MailjetBackend'
 EMAIL_HOST = 'in-v3.mailjet.com'

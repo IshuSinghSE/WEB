@@ -62,6 +62,7 @@ class post(models.Model):
     hit_count_generic =  GenericRelation(HitCount, object_id_field='object_pk', related_query_name='hit_count_generic_relation')
     tags = TaggableManager() 
     approved = models.BooleanField(default=False)
+    feed = models.BooleanField(default=False)
 
 
     class Meta:
@@ -91,18 +92,42 @@ class post(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            original_slug = slugify(self.title)
+            queryset = post.objects.all().filter(slug__iexact=original_slug).count()
+            count = 1
+            slug = original_slug
+            while(queryset):
+                slug = original_slug + '-' + str(count)
+                count += 1
+                queryset = post.objects.all().filter(slug__iexact=slug).count()
+
+            self.slug = slug
+
+        if self.feed:
+            try:
+                temp = post.objects.get(feed=True)
+                if self != temp:
+                    temp.feed = False
+                    temp.save()
+            except post.DoesNotExist:
+                pass
+
+            
         # if self.status == 'published':
             # self.created = timezone.now()
         # else:
             # self.publish = None
         # super(post, self).save(*args, **kwargs)
-        return super().save(*args, **kwargs)
+        return super(post, self).save(*args, **kwargs)
 
    
 # CATEGORIES #    
 class category(models.Model):
-    name = models.CharField(max_length=200)
+    name     = models.CharField(max_length=200)
+    image    = models.ImageField(upload_to="Category/",blank=True,null=True)
+    about    = models.CharField(max_length=200,default='Vivamus non condimentum orci. Pellentesque venenatis nibh sit amet est vehicula lobortis.', blank=True, null=True)
+    created  = models.DateField(auto_now_add=True)
+
     
     def __str__(self):
         return self.name
@@ -129,13 +154,13 @@ class profile(models.Model):
 
      def get_absolute_url(self):
         return reverse('index')
-        
+'''      
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
     if created:
         profile.objects.create(user=instance)
     instance.profile.save()        
-
+'''
 class SubscribedUsers(models.Model):
     email = models.CharField(unique=True, max_length=50)
     name = models.CharField(max_length=50)
