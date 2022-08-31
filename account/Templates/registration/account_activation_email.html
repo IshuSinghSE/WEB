@@ -1,7 +1,15 @@
 {% autoescape off %}
 Hi {{ user.username }},
 
-Please click on the link below to confirm your registration:
+
+Thanks for signing up with {{ domain }}! You must follow this link within 30 days of registration to activate your account:
 
 http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+Have fun, and don't hesitate to contact us with your feedback.
+The {{ domain }} Team
+
+
+<hr>
+
 {% endautoescape %}
