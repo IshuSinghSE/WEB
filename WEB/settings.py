@@ -184,9 +184,9 @@ PASSWORD_HASHERS =  [
         
 ]
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/index/'
 LOGIN_URL = '/accounts/login/'
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/index/'
 
 
 
