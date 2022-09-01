@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os, psycopg2, datetime
 import environ
+import django_heroku
+import dj_database_url
+from decouple import config
 
 env = environ.Env()
 environ.Env.read_env() # read env file
@@ -32,6 +35,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
+
 
 # Application definition
 
@@ -42,16 +47,51 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'theblog.apps.TheblogConfig',
     'account',
     'ckeditor',
     'django.contrib.humanize',
     'hitcount',
     'taggit',
-    'embed_video',
+    #'embed_video',
     'django_social_share',
-]
+    
 
+]
+    
+''' #  'allauth',
+    #'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
+    #'allauth.socialaccount.providers.facebook',
+'''  
+'''
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+
+        ],
+        'AUTH_PARAMS':  {
+            'access_type': 'online',
+        }
+    },
+    # 'facebook': {
+        # 'SCOPE': ['email', 'publish_stream'],
+        #'METHOD': 'js_sdk'  # instead of 'oauth2'
+    # }
+}
+
+
+AUTHENTICATION_BACKENDS = {
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+}
+'''
 TAGGIT_CASE_INSENSITIVE = True
 
 MIDDLEWARE = [
@@ -62,6 +102,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'WEB.urls'
@@ -77,6 +118,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                 
+                # "allauth.account.context_processors.account",
+                # "allauth.socialaccount.context_processors.socialaccount",
             ],
         },
     },
@@ -140,9 +184,9 @@ PASSWORD_HASHERS =  [
         
 ]
 
-LOGIN_REDIRECT_URL = '/index/'
+LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/accounts/login/'
-LOGOUT_REDIRECT_URL = '/index/'
+LOGOUT_REDIRECT_URL = '/'
 
 
 
@@ -170,6 +214,8 @@ STATIC_ROOT = os.path.join(BASE_DIR,'assets')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -207,3 +253,5 @@ EMAIL_USE_SSL = False
 EMAIL_TIMEOUT = 30
 DEFAULT_FROM_EMAIL = 'candyking1002263@gmail.com'
 """
+
+django_heroku.settings(locals())

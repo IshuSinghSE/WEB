@@ -1,3 +1,4 @@
+
 {% autoescape off %}
 Hi {{ user.username }},
 
@@ -7,7 +8,7 @@ Thanks for signing up with {{ domain }}! You must follow this link within 30 day
 http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
 
 Have fun, and don't hesitate to contact us with your feedback.
-The {{ domain }} Team
+The {{ name }} Team
 
 
 <hr>

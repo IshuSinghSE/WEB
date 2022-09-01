@@ -76,6 +76,7 @@ class UserSignUp(generic.CreateView):
 			subject = 'Activate Your MySite Account'
 			message = render_to_string('registration/account_activation_email.html', {
                 'user': user,
+				'name': current_site.name,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),

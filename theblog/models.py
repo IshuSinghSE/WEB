@@ -11,7 +11,7 @@ from django.template.defaultfilters import slugify
 from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 from taggit.managers import TaggableManager
-from  embed_video.fields  import  EmbedVideoField
+#from  embed_video.fields  import  EmbedVideoField
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver

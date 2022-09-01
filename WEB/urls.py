@@ -26,8 +26,8 @@ urlpatterns = [
     path('', include('theblog.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('account.urls')),
-    # path('', include('socialShare.urls')),
-
+    #path('accounts/', include('allauth.urls')),
+   
    
 
 ]
