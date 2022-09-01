@@ -33,7 +33,7 @@ SECRET_KEY = 'django-insecure-y@bo)dcy36_ni(3xezfq#q*d+i^ih)*729m86(&%q%o66y$n0f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://techoutbox.herokuapp.com/','127.0.0.1:8000']
+ALLOWED_HOSTS = ['techoutbox.herokuapp.com','127.0.0.1:8000']
 
 SITE_ID = 1
 
